@@ -1,0 +1,13 @@
+.nameText {
+    color: "#FFF";
+    font-Size: 18;
+    font-Weight: 100;
+    margin-Left: 10;
+    margin-Right: 15;
+}
+
+.profilebg {
+    background-Color: "#FFF";
+    margin-Left: 0;
+    border-Radius: 50;
+}
