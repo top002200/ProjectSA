@@ -11,6 +11,10 @@ import ProfileUserUI from "./pages/profile/user";
 import RegisterUserUI from "./pages/register/user";
 import LoginUserUI from "./pages/login/user";
 import PrivacyUserUI from "./pages/profile/user/privacy";
+import ProfileOperator from "./pages/profile/operator";
+import PrivacyOperator from "./pages/privacy/operator";
+import RegisterOperator from "./pages/register/operator";
+import LoginOperator from "./pages/login/operator";
 
 
 const App: React.FC = () => {
@@ -31,6 +35,17 @@ const App: React.FC = () => {
         </Router>
       );
     }
+    if (result === "operator") {
+      return (
+        <Router>
+          <Routes>
+            <Route path="/login/operator" element={<Navigate to="/profile/operator" />} />
+            <Route path="/profile/operator" element={<ProfileOperator />} />
+            <Route path="/privacy/operator" element={<PrivacyOperator />} />
+          </Routes>
+        </Router>
+      );
+    }
   }
 
   return (
@@ -40,6 +55,11 @@ const App: React.FC = () => {
         <Route path="/register/user" element={<RegisterUserUI />} />
         <Route path="/profile/user" element={<Navigate to="/" />} />
         <Route path="/privacy/user" element={<Navigate to="/" />} />
+
+        <Route path="/op" element={<LoginOperator />} />
+        <Route path="/register/operator" element={<RegisterOperator />} />
+        <Route path="/profile/operator" element={<Navigate to="/" />} />
+        <Route path="/privacy/operator" element={<Navigate to="/" />} />
       </Routes>
     </Router>
   );

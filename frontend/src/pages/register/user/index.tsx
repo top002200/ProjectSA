@@ -61,6 +61,12 @@ function RegisterUserUI() {
     }
   };
 
+  const handleClick = () => {
+    setTimeout(() => {
+      window.location.href = "/register/operator";
+    }, 500);
+  }
+
   const [size, setSize] = useState<SizeType>('large'); // default is 'middle'
 
   return (
@@ -92,21 +98,9 @@ function RegisterUserUI() {
                     <span className="span">&nbsp;</span>
                     <span className="text-wrapper-2">สำหรับผู้หางาน</span>
                     <span className="space"></span>
-                    <Button className="custom-button" danger>ลงทะเบียน สำหรับผู้ประกอบการ</Button>
+                    <Button onClick={handleClick} className="custom-button" danger>ลงทะเบียน สำหรับผู้ประกอบการ</Button>
                     {/* <span className="space2"></span> */}
                   </p>
-                  {/* <p className="image">
-                  <br />
-                  <span className="space2"></span>
-                  <span className="sp">คำนำหน้า</span>
-                  <span className="space3"></span>
-                  <span>ชื่อ</span>
-                  <span className="space3"></span>
-                  <span className="space3"></span>
-                  <span className="space3"></span>
-                  <span>สกุล</span>
-                </p> */}
-                  {/* <Divider /> */}
                 </div>
               </Card>
               <Form

@@ -21,7 +21,7 @@ func SetupDatabase() {
 		&User_account{},
 		&WorkHasUser{},
 		&Resume{},
-		&Oparator_account{},
+		&Operator_account{},
 		&Notification{},
 		&Jobpost{},
 		&CandidateSelection{},

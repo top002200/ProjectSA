@@ -41,6 +41,12 @@ function LoginUserUI() {
 
   };
 
+  const handleClick = () => {
+    setTimeout(() => {
+      window.location.href = "/op";
+    }, 500);
+  }
+
   const [size, setSize] = useState<SizeType>('large'); // default is 'middle'
 
   return (
@@ -68,7 +74,7 @@ function LoginUserUI() {
                     <span className="span">&nbsp;</span>
                     <span className="text-wrapper-2">สำหรับผู้หางาน</span>
                     <span className="space"></span>
-                    <Button className="custom-button" danger>เข้าสู่ระบบ สำหรับผู้ประกอบการ</Button>
+                    <Button onClick={handleClick} className="custom-button" danger>เข้าสู่ระบบ สำหรับผู้ประกอบการ</Button>
                   </p>
                 </div>
               </Card>

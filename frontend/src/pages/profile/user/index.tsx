@@ -69,30 +69,23 @@ function ProfileUserUI() {
   };
 
   const noticolumns: ColumnsType<NotiInterface> = [
-
-    {
-      title: "ลำดับ",
-      dataIndex: "ID",
-      key: "id",
-    },
     {
       title: "หัวข้อประกาศงาน",
-      dataIndex: "Salary",
-      key: "Salary",
+      dataIndex: "Description",
+      key: "description",
     },
     {
       title: 'รายละเอียด',
       dataIndex: 'Content',
       key: 'content',
       render: (text: string) => (
-        <div>
+        <div style={{ textAlign: 'left' }}>
           {text.split('\n').map((item, key) => {
             return <div key={key}>{item}</div>;
           })}
         </div>
       ),
     },
-
   ];
 
   const handleLogout = () => {

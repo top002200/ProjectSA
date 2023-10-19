@@ -40,14 +40,14 @@ type Resume struct {
 	WorkHasUser   WorkHasUser `gorm:"references:id"`
 }
 
-type Oparator_account struct {
+type Operator_account struct {
 	gorm.Model
 
 	// Avatar          string
-	Op_email        string `gorm:"uniqueIndex"`
-	Op_pass         string `gorm:"uniqueIndex"`
-	Company         string
-	Company_address string
+	Operator_email string `gorm:"uniqueIndex"`
+	Operator_pass  string `gorm:"uniqueIndex"`
+	Com_name       string
+	Address        string
 
 	Jobposts []Jobpost `gorm:"foreignKey:OperatorID"`
 }
@@ -74,7 +74,7 @@ type Jobpost struct {
 	Matched     string
 
 	OperatorID *uint
-	Operator   Oparator_account `gorm:"references:id"`
+	Operator   Operator_account `gorm:"references:id"`
 
 	CandidateSelections []CandidateSelection `gorm:"foreignKey:JobpostID"`
 	Notifications       []Notification       `gorm:"foreignKey:JobpostID"`

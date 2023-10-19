@@ -19,6 +19,14 @@ func main() {
 	r.PATCH("/users", controller.UpdateUser)
 	r.PATCH("/users/privacy", controller.UpdatePrivacyUser)
 	r.DELETE("/user/:id", controller.DeleteUser)
+	// Operator Routes
+	r.GET("/operators/get", controller.ListOperators)
+	r.GET("/operator/:id", controller.GetOperator)
+	r.POST("/operators", controller.CreateOperator)
+	r.POST("/operators/login", controller.OperatorLogin)
+	r.PATCH("/operators", controller.UpdateOperator)
+	r.PATCH("/operators/privacy", controller.UpdatePrivacyOperator)
+	r.DELETE("/operator/:id", controller.DeleteOperator)
 	// Run the server
 	r.Run()
 }

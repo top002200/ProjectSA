@@ -44,11 +44,25 @@ func GetUser(c *gin.Context) {
 func GetUserNoti(c *gin.Context) {
 	var notification []entity.Notification
 	id := c.Param("id")
-	if err := entity.DB().Preload("Jobpost.Operator").Preload("User").Where("id = ?", id).First(&notification).Error; err != nil {
+
+	if err := entity.DB().Preload("Jobpost").Where("user_id = ?", id).Find(&notification).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": notification})
+
+	// สร้างข้อมูลที่จะแสดงในหน้าเว็บ
+	var result []gin.H
+	for _, notification := range notification {
+		data := gin.H{
+			"ID":          notification.ID,
+			"Content":     notification.Content,
+			"Read":        notification.Read,
+			"Description": notification.Jobpost.Description,
+		}
+		result = append(result, data)
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": result})
 }
 
 // GET /users
@@ -140,7 +154,7 @@ func UserLogin(c *gin.Context) {
 		// c.JSON(http.StatusBadRequest, gin.H{"error": "user not found"})
 		return
 	}
-	accessToken, err := generateAccessToken(user)
+	accessToken, err := UsergenerateAccessToken(user)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"status": "error", "message": "ไม่สามารถสร้าง accessToken"})
 		return
@@ -150,7 +164,7 @@ func UserLogin(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"status": "success", "message": "เข้าสู่ระบบสำเร็จ", "accessToken": accessToken, "id": user.ID, "result": "user"})
 }
 
-func generateAccessToken(user entity.User_account) (string, error) {
+func UsergenerateAccessToken(user entity.User_account) (string, error) {
 	// สร้างข้อมูลที่จะเก็บใน accessToken
 	claims := jwt.MapClaims{
 		"user_id":    user.ID,
