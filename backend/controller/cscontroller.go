@@ -10,7 +10,7 @@ import (
 func ListCandidate(c *gin.Context) {
 	var workHasUsers []entity.WorkHasUser
 
-	if err := entity.DB().Preload("Candidatepost").Preload("User_account").Preload("Candidatepost").Where("status = 0").
+	if err := entity.DB().Preload("Candidatepost").Preload("User").Preload("Candidatepost").Where("status = 0").
 		Find(&workHasUsers).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -29,7 +29,7 @@ func ListCandidate(c *gin.Context) {
 		result = append(result, data)
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": workHasUsers})
+	c.JSON(http.StatusOK, gin.H{"data": result})
 }
 
 func CreateCandidate(c *gin.Context) {
@@ -71,7 +71,7 @@ func CreateCandidate(c *gin.Context) {
 			return
 		}
 		if !workHasUser.Status {
-			if err := entity.DB().Model(workHasUser).Update("Status", true).Error; err != nil {
+			if err := entity.DB().Model(workHasUser).Update("Status", 1).Error; err != nil {
 				c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 				return
 			}

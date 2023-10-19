@@ -121,7 +121,7 @@ const CandidateSelection: React.FC = () => {
       UserName: record.UserName,
       Position: record.Position,
       Detail: record.Detail ,
-      JobpostID: record.JobpostID,
+      CandidatepostID: record.CandidatepostID,
       Status_cs: '',
       Read: false,
     };
@@ -156,7 +156,7 @@ const CandidateSelection: React.FC = () => {
       UserName: record.UserName,
       Position: record.Position,
       Detail: record.Detail,
-      JobpostID: record.JobpostID,
+      CandidatepostID: record.CandidatepostID,
       Status_cs: '',
       Read: false,
     };
@@ -243,7 +243,7 @@ const CandidateSelection: React.FC = () => {
           ID: record.ID, 
           Pass_or_rejection_details: jobInterviewDetail,
           Status_cs: isPass ? "Pass" : "Reject",
-          JobpostID: record.JobpostID,
+          CandidatepostID: record.CandidatepostID,
           Candidate: record.UserName,
           Read: record.Read,
           User_id: record.ID,

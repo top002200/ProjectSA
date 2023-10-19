@@ -9,7 +9,7 @@ export interface DataWHU {
     Detail?: string;
     Status_cs: string;
     UserID?: number; 
-    JobpostID?: number; 
+    CandidatepostID?: number; 
     Pass_or_rejection_details?: string;
     Read: boolean;
   }

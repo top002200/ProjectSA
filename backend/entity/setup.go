@@ -23,7 +23,7 @@ func SetupDatabase() {
 		&Resume{},
 		&Operator_account{},
 		&Notification{},
-		// &Candidatepost{},
+		&Candidatepost{},
 		&CandidateSelection{},
 	)
 	db = database

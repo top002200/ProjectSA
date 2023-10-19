@@ -186,6 +186,7 @@ function RegisterUserUI() {
                         name="user_pass"
                         rules={[
                           {
+                            required: true,
                             validator: (rule, value) => {
                               if (!value) {
                                 return Promise.reject("กรุณากรอกรหัสผ่าน!");
