@@ -26,7 +26,7 @@ type WorkHasUser struct {
 	Resumes []Resume `gorm:"foreignKey:WorkHasUserID"`
 
 	CandidatepostID *uint
-	Candidatepost   Candidatepost `gorm:"references:id"`
+	Candidatepost   Candidatepost `gorm:"foreignKey:CandidatepostID"`
 
 	UserID *uint
 	User   User_account `gorm:"references:id"`
@@ -55,8 +55,9 @@ type Operator_account struct {
 type Notification struct {
 	gorm.Model
 
-	Content string
-	Read    bool
+	PassOrRejectionDetails string `gorm:"type:longtext"`
+	Read                   bool
+	StatusNoti             string
 
 	CandidatepostID *uint
 	Candidatepost   Candidatepost `gorm:"references:id"`
@@ -85,8 +86,8 @@ type Candidatepost struct {
 type CandidateSelection struct {
 	gorm.Model
 
-	PassOrRejectionDetails string `gorm:"type:longtext"`
-	Candidate              string `gorm:"type:longtext"`
+	StatusCS  string
+	Candidate string `gorm:"type:longtext"`
 
 	CandidatepostID *uint
 	Candidatepost   Candidatepost `gorm:"references:id"`

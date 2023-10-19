@@ -19,6 +19,8 @@ import LoginOperator from "./pages/login/operator";
 // Candi-post
 import Candidatepost from "./pages/candidate/post";
 import Candidatehome from "./pages/candidatehome/home";
+//cs
+import CandidateSelection from "./pages/operator/candidateSelection";
 
 
 const App: React.FC = () => {
@@ -48,6 +50,7 @@ const App: React.FC = () => {
             <Route path="/privacy/operator" element={<PrivacyOperator />} />
             <Route path="/candidate/post" element={<Candidatepost />} />
             <Route path="/candidatehome/home" element={<Candidatehome />} />
+            <Route path="/operator/CandidateSelection" element={<CandidateSelection />} />
           </Routes>
         </Router>
       );

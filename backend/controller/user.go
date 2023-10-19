@@ -55,7 +55,7 @@ func GetUserNoti(c *gin.Context) {
 	for _, notification := range notification {
 		data := gin.H{
 			"ID":          notification.ID,
-			"Content":     notification.Content,
+			"Content":     notification.PassOrRejectionDetails,
 			"Read":        notification.Read,
 			"Description": notification.Candidatepost.Dsecrition,
 		}

@@ -356,7 +356,7 @@ function Candidatehome() {
 
                     </Col>
                     <Col xs={12} sm={12} md={12} lg={12} xl={12}>
-                      <Link to='/candidate/post'>
+                      <Link to='/operator/CandidateSelection'>
                         <Button style={{
                           fontSize: '50px', // เพิ่มขนาดของไอคอนเป็น 24px (หรือค่าที่คุณต้องการ)
                           fontWeight: 'bold',
@@ -392,7 +392,7 @@ function Candidatehome() {
                   </Link>
                 </Col>
                 <Col xs={8} sm={8} md={8} lg={8} xl={8}>
-                  <Link to='/candidate/post' className='custom-button3' type="link" style={{ marginLeft: '-30%', marginRight: '20px', fontSize: '16px', color: 'red' }}>
+                  <Link to='/operator/CandidateSelection' className='custom-button3' type="link" style={{ marginLeft: '-30%', marginRight: '20px', fontSize: '16px', color: 'red' }}>
                     <text>รายชื่อผู้สมัคร</text>
 
                   </Link>
