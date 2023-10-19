@@ -32,7 +32,7 @@ function LoginOperator() {
         console.log(localStorage.getItem('id'));
         messageApi.success("เข้าสู่ระบบสำเร็จ");
         setTimeout(() => {
-          window.location.href = "/profile/operator";
+          window.location.href = "/candidatehome/home";
         }, 1500);
       }
     } catch (error) {

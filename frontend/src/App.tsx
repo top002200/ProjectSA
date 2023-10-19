@@ -6,15 +6,19 @@ import {
   Navigate,
 } from "react-router-dom";
 
-
+// User
 import ProfileUserUI from "./pages/profile/user";
 import RegisterUserUI from "./pages/register/user";
 import LoginUserUI from "./pages/login/user";
 import PrivacyUserUI from "./pages/profile/user/privacy";
+// Op
 import ProfileOperator from "./pages/profile/operator";
 import PrivacyOperator from "./pages/privacy/operator";
 import RegisterOperator from "./pages/register/operator";
 import LoginOperator from "./pages/login/operator";
+// Candi-post
+import Candidatepost from "./pages/candidate/post";
+import Candidatehome from "./pages/candidatehome/home";
 
 
 const App: React.FC = () => {
@@ -42,6 +46,8 @@ const App: React.FC = () => {
             <Route path="/login/operator" element={<Navigate to="/profile/operator" />} />
             <Route path="/profile/operator" element={<ProfileOperator />} />
             <Route path="/privacy/operator" element={<PrivacyOperator />} />
+            <Route path="/candidate/post" element={<Candidatepost />} />
+            <Route path="/candidatehome/home" element={<Candidatehome />} />
           </Routes>
         </Router>
       );

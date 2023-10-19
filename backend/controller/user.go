@@ -57,7 +57,7 @@ func GetUserNoti(c *gin.Context) {
 			"ID":          notification.ID,
 			"Content":     notification.Content,
 			"Read":        notification.Read,
-			"Description": notification.Jobpost.Description,
+			"Description": notification.Candidatepost.Dsecrition,
 		}
 		result = append(result, data)
 	}
