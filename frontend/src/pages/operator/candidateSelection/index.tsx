@@ -9,6 +9,9 @@ import {
   UserAddOutlined,
   UserDeleteOutlined,
   MenuOutlined,
+  BellOutlined,
+  SafetyOutlined,
+  IdcardOutlined,
 
   
 } from '@ant-design/icons';
@@ -25,16 +28,45 @@ import { CreateCandidate, GetCandidate} from '../../../services/https/cs';
 
 
 
-
 type EditableTableProps = Parameters<typeof Table>[0];
 type ColumnTOCF = Exclude<EditableTableProps['columns'], undefined>;
 
 
 
+
 const CandidateSelection: React.FC = () => {
 
-
+  const [openNoti, setNotiOpen] = useState(false);
+  const [openMenu, setMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [comname, setComname] = useState();
   let [dataCS, setDataCS] = useState<DataWHU[]>([]);
+
+  const handleSecurity = () => {
+    window.location.href = "/privacy/operator";
+  }
+  
+  
+  const handleProfile = () => {
+    window.location.href = "/profile/operator";
+  }
+  
+  const showDrawer = () => {
+    setMenuOpen(true);
+  };
+  
+  const onClose = () => {
+    setMenuOpen(false);
+  };
+  
+  // Noti
+  const showNoti = () => {
+    setNotiOpen(true);
+  };
+  
+  const onCloseNoti = () => {
+    setNotiOpen(false);
+  };
 
   useEffect(() => {
     GetDataCS();
@@ -306,15 +338,8 @@ const CandidateSelection: React.FC = () => {
 
 
 
-  // ส่วนของ Header and sider
-  const [open, setOpen] = useState(false);
-  const showDrawer = () => {
-    setOpen(true);
-  };
 
-  const onClose = () => {
-    setOpen(false);
-  };
+
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
@@ -331,94 +356,84 @@ const CandidateSelection: React.FC = () => {
 
     <Layout>
 
-{/* <button onClick={Get}>
-  fetchData
-</button> */}
-
-      <Drawer
+<Drawer
         title="JOBJOB MENU"
         placement="right"
         closable={false}
         onClose={onClose}
-        open={open}
+        open={openMenu}
         key="right"
       >
-        <div >
 
-          <Row>
-            <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" style={{ cursor: 'pointer', transform: 'scale(1.5)' }}>
+        <Row style={{ marginTop: '10px', marginLeft: '20px'}}>
+          <Avatar src="https://xsgames.co/randomoperators/avatar.php?g=pixel" style={{ cursor: 'pointer', transform: 'scale(2)' }}>
 
-            </Avatar>
-
-            <Link to={'/customer/Receiver'}>
-              <text style={{
-                fontSize: '20px', marginLeft: '25px',
-                fontWeight: 'bolder', color: 'white'
-              }}>
-                <span style={{ color: '#ff7518' }}>Naruebeth</span>
-                <span>B</span>
-                <span style={{ color: '#ff7518' }}>Chitchuai</span>
-              </text>
-
-            </Link>
-
-          </Row>
-
-        </div>
-
-        <p>
-          <Button icon={<HomeOutlined style={{ marginLeft: '-35px' }} />} style={{
-            fontSize: '18px', fontWeight: 'bold', height: '5vh',
-            marginTop: '5px', width: '100%'
-          }}>
-            Home
-          </Button>
-        </p>
-
-        <p>
-          <Button icon={<UserOutlined style={{ marginLeft: '-0px' }} />} style={{
-            fontSize: '18px', fontWeight: 'bold', height: '5vh',
-            marginTop: '5px', width: '100%'
-          }}>
-            My Profile
-          </Button>
-        </p>
-
-        <p>
-          <Button icon={<NotificationOutlined style={{ marginLeft: '-15px' }} />} style={{
-            fontSize: '18px', fontWeight: 'bold', height: '5vh',
-            marginTop: '5px', width: '100%', justifySelf: 'auto'
-          }}>
-            Job Post
-          </Button>
-        </p>
-
-        <p>
-          <Button icon={<SolutionOutlined />} style={{
-            fontSize: '18px', fontWeight: 'bold', height: '5vh',
-            marginTop: '5px', width: '100%'
-          }}>
-            Candidate
-          </Button>
-        </p>
-
-        <p>
-          <Button onClick={handleLogout} icon={<LoginOutlined style={{ marginLeft: '-25px' }} />}
-            style={{
-              fontSize: '18px', fontWeight: 'bold', height: '5vh',
-              marginTop: '5px', width: '100%'
+          </Avatar>
+          <Link to="/login/operator">
+            <text style={{
+              fontSize: '20px', marginLeft: '25px',
+              fontWeight: 'bolder', color: 'white'
             }}>
+              <span style={{ color: '#000000' }}>{comname}</span>
+            </text>
+          </Link>
 
-            Logout
-          </Button>
-        </p>
-
-
-    
-
-
+        </Row>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}></div>
+        <Button onClick={handleProfile} icon={<IdcardOutlined />} style={{
+          fontSize: '18px', fontWeight: 'bold', height: '45px',
+          marginTop: '30px',
+          width: '100%',
+          textAlign: 'center'
+        }}>
+          Profile
+        </Button>
+        <Link to="/candidatehome/home">
+        <Button icon={<NotificationOutlined />} style={{
+              fontSize: '18px', fontWeight: 'bold', height: '45px',
+              marginTop: '5px', width: '100%',textAlign: 'center'
+            }}> 
+              Job Post
+        </Button>
+        </Link>
+        <Link to="/operator/CandidateSelection">
+        <Button icon={<SolutionOutlined />} style={{
+              fontSize: '18px', fontWeight: 'bold', height: '45px',
+              marginTop: '5px', width: '100%',textAlign: 'center'
+            }}>
+              Candidate
+        </Button>
+        </Link>
+        <Button onClick={handleSecurity} icon={<SafetyOutlined />} style={{
+          fontSize: '18px', fontWeight: 'bold', height: '45px',
+          marginTop: '5px',
+          width: '100%',
+          textAlign: 'center'
+        }}>
+          Privacy
+        </Button>
+        <Button onClick={handleLogout} icon={<LoginOutlined />} style={{
+          fontSize: '18px', fontWeight: 'bold', height: '45px',
+          marginTop: '5px',
+          width: '100%',
+          textAlign: 'center'
+        }}>
+          <text>Logout</text>
+        </Button>
       </Drawer>
+      <Drawer
+        title="JOBJOB Notification"
+        placement="right"
+        closable={false}
+        onClose={onCloseNoti}
+        open={openNoti}
+        key="right"
+        width={700}
+      >
 
+        
+        
+      </Drawer>
       <Header style={{ padding: 0, background: '#333333' }}>
         <div style={{
           display: 'flex',
@@ -435,25 +450,28 @@ const CandidateSelection: React.FC = () => {
             <span style={{ color: '#ff7518' }}>JO</span>
             <span>B</span>
           </text>
-
-
-          <div style={{ flex: 1 }}></div> {/* เพิ่มพื้นที่ที่ว่างเพื่อทำให้ปุ่ม Logout ชิดขวา */}
-
+          <div style={{ flex: 1 }}></div>
+          
+          <Button onClick={showNoti} icon={<BellOutlined />} style={{
+            fontSize: '0px', fontWeight: 'bold',
+            marginTop: '0px', marginLeft: '20px',
+            height: '45px',
+            width: '50px', 
+          }}>
+            
+          </Button>
           <Button onClick={showDrawer} icon={<MenuOutlined />} style={{
-            fontSize: '18px', fontWeight: 'bold', height: '5vh',
-            marginTop: '0px', marginLeft: '20px'
+            fontSize: '18px', fontWeight: 'bold',
+            marginTop: '0px', marginLeft: '5px',
+            height: '45px',
+            width: '110px', 
           }}>
             MENU
           </Button>
+          
 
         </div>
       </Header >
-
-
-
-
-
-
       <Layout>
 
         <Content>

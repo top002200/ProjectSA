@@ -70,11 +70,15 @@ function LoginOperator() {
             <Card style={{ height: "130px",marginTop: '0px', marginBottom: "-30px", }}>
               <div className="label" style={{ marginLeft: "30px", marginRight: "30px" }}>
                 <p className="div">
-                  <span className="text-wrapper">เข้าสู่ระบบ</span>
+                  <span className="text-wrapper"
+                  style={{ color: '#3b50ce', borderColor: '#3b50ce' }}
+                  >เข้าสู่ระบบ</span>
                   <span className="span">&nbsp;</span>
                   <span className="text-wrapper-2">สำหรับผู้ประกอบการ</span>
                   <span className="space1"></span>
-                  <Button onClick={handleClick} className="custom-button" danger>เข้าสู่ระบบ สำหรับผู้หางาน</Button>
+                  <Button onClick={handleClick} className="custom-button" danger
+                  style={{ backgroundColor: '#d0d9ff', color: '#3b50ce', borderColor: '#3b50ce' }}
+                  >เข้าสู่ระบบ สำหรับผู้หางาน</Button>
                 </p>
               </div>
             </Card>
@@ -127,7 +131,9 @@ function LoginOperator() {
               <Card style={{ height: "85px", marginTop: "-15px", }}>
                 <div className="label" style={{ marginLeft: "18px", marginRight: "30px" }}>
                   <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                    <Button htmlType="submit" className='custom-button2' type="primary" size={size}>
+                    <Button htmlType="submit" className='custom-button2' type="primary" size={size}
+                    style={{ backgroundColor: '#3b50ce', color: 'white', borderColor: '#3b50ce' }}
+                    >
                       เข้าสู่ระบบ
                     </Button>
                     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>

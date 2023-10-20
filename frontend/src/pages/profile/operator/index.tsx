@@ -13,6 +13,8 @@ import {
   Drawer,
 } from "antd";
 import {
+  SolutionOutlined,
+  NotificationOutlined,
   LoginOutlined,
   MenuOutlined,
   IdcardOutlined,
@@ -149,6 +151,22 @@ function ProfileOperator() {
         }}>
           Profile
         </Button>
+        <Link to="/candidatehome/home">
+        <Button icon={<NotificationOutlined />} style={{
+              fontSize: '18px', fontWeight: 'bold', height: '45px',
+              marginTop: '5px', width: '100%',textAlign: 'center'
+            }}> 
+              Job Post
+        </Button>
+        </Link>
+        <Link to="/operator/CandidateSelection">
+        <Button icon={<SolutionOutlined />} style={{
+              fontSize: '18px', fontWeight: 'bold', height: '45px',
+              marginTop: '5px', width: '100%',textAlign: 'center'
+            }}>
+              Candidate
+        </Button>
+        </Link>
         <Button onClick={handleSecurity} icon={<SafetyOutlined />} style={{
           fontSize: '18px', fontWeight: 'bold', height: '45px',
           marginTop: '5px',
@@ -301,7 +319,7 @@ function ProfileOperator() {
                         marginTop: "0px",
                         marginLeft: "20px",
                       }}
-                      onClick={handleProfile}
+                      onClick={handleSecurity}
                     >
                       แก้ไขข้อมูลส่วนตัว
                     </Button>

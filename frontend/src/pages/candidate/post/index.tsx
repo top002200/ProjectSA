@@ -22,9 +22,12 @@ import {
   DownOutlined,
   DownloadOutlined,
   LoginOutlined,
+  IdcardOutlined,
   SolutionOutlined,
+  BellOutlined,
   NotificationOutlined,
   HomeOutlined,
+  SafetyOutlined,
   MenuOutlined,
 } from "@ant-design/icons";
 import "./style.css";
@@ -40,6 +43,10 @@ function Candidatepost() {
   const [messageApi, contextHolder] = message.useMessage();
   const [form] = Form.useForm();
   const [passwordError, setPasswordError] = useState('');
+  const [openMenu, setMenuOpen] = useState(false);
+  const [openNoti, setNotiOpen] = useState(false);
+  const [comname, setComname] = useState();
+  
 
 
 
@@ -79,12 +86,28 @@ function Candidatepost() {
 
   // ส่วนของ Header and sider // อยู่นอก return
   const [open, setOpen] = useState(false);
+  const handleSecurity = () => {
+    window.location.href = "/privacy/operator";
+  }
+  const handleProfile = () => {
+    window.location.href = "/profile/operator";
+  }
+
   const showDrawer = () => {
-    setOpen(true);
+    setMenuOpen(true);
   };
 
   const onClose = () => {
-    setOpen(false);
+    setMenuOpen(false);
+  };
+
+  // Noti
+  const showNoti = () => {
+    setNotiOpen(true);
+  };
+
+  const onCloseNoti = () => {
+    setNotiOpen(false);
   };
 
   const handleLogout = () => {
@@ -97,124 +120,122 @@ function Candidatepost() {
 
   return (
     <>
-      {/* <Header style={{ display: 'flex', alignItems: 'center' }}>
-      <div className="demo-logo" />
-    </Header> */}
-      <Layout>
-        <Drawer
-          title="JOBJOB MENU"
-          placement="right"
-          closable={false}
-          onClose={onClose}
-          open={open}
-          key="right"
-        >
-          <div >
+       <Drawer
+        title="JOBJOB MENU"
+        placement="right"
+        closable={false}
+        onClose={onClose}
+        open={openMenu}
+        key="right"
+      >
 
-            <Row>
-              <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" style={{ cursor: 'pointer', transform: 'scale(1.5)' }}>
+        <Row style={{ marginTop: '10px', marginLeft: '20px'}}>
+          <Avatar src="https://xsgames.co/randomoperators/avatar.php?g=pixel" style={{ cursor: 'pointer', transform: 'scale(2)' }}>
 
-              </Avatar>
-              <text style={{
-                fontSize: '20px', marginLeft: '25px',
-                fontWeight: 'bolder', color: 'white'
-              }}>
-                <span style={{ color: '#ff7518' }}>Supachai</span>
-                <span>B</span>
-                <span style={{ color: '#ff7518' }}>Charoen</span>
-              </text>
-            </Row>
-
-          </div>
-
-          <p>
-            <Link to='/candidatehome/home' type="link" >
-              <Button icon={<HomeOutlined style={{ marginLeft: '-35px' }} />} style={{
-                fontSize: '18px', fontWeight: 'bold', height: '5vh',
-                marginTop: '5px', width: '100%'
-              }}>
-                Home
-              </Button>
-            </Link>
-          </p>
-
-          <p>
-            <Button icon={<UserOutlined style={{ marginLeft: '-0px' }} />} style={{
-              fontSize: '18px', fontWeight: 'bold', height: '5vh',
-              marginTop: '5px', width: '100%'
+          </Avatar>
+          <Link to="/login/operator">
+            <text style={{
+              fontSize: '20px', marginLeft: '25px',
+              fontWeight: 'bolder', color: 'white'
             }}>
-              My Profile
-            </Button>
-          </p>
+              <span style={{ color: '#000000' }}>{comname}</span>
+            </text>
+          </Link>
 
-          <p>
-            <Button icon={<NotificationOutlined style={{ marginLeft: '-15px' }} />} style={{
-              fontSize: '18px', fontWeight: 'bold', height: '5vh',
-              marginTop: '5px', width: '100%', justifySelf: 'auto'
-            }}>
+        </Row>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}></div>
+        <Button onClick={handleProfile} icon={<IdcardOutlined />} style={{
+          fontSize: '18px', fontWeight: 'bold', height: '45px',
+          marginTop: '30px',
+          width: '100%',
+          textAlign: 'center'
+        }}>
+          Profile
+        </Button>
+        <Link to="/candidatehome/home">
+        <Button icon={<NotificationOutlined />} style={{
+              fontSize: '18px', fontWeight: 'bold', height: '45px',
+              marginTop: '5px', width: '100%',textAlign: 'center'
+            }}> 
               Job Post
-            </Button>
-          </p>
-
-          <p>
-            <Button icon={<SolutionOutlined />} style={{
-              fontSize: '18px', fontWeight: 'bold', height: '5vh',
-              marginTop: '5px', width: '100%'
+        </Button>
+        </Link>
+        <Link to="/operator/CandidateSelection">
+        <Button icon={<SolutionOutlined />} style={{
+              fontSize: '18px', fontWeight: 'bold', height: '45px',
+              marginTop: '5px', width: '100%',textAlign: 'center'
             }}>
               Candidate
-            </Button>
-          </p>
+        </Button>
+        </Link>
+        <Button onClick={handleSecurity} icon={<SafetyOutlined />} style={{
+          fontSize: '18px', fontWeight: 'bold', height: '45px',
+          marginTop: '5px',
+          width: '100%',
+          textAlign: 'center'
+        }}>
+          Privacy
+        </Button>
+        <Button onClick={handleLogout} icon={<LoginOutlined />} style={{
+          fontSize: '18px', fontWeight: 'bold', height: '45px',
+          marginTop: '5px',
+          width: '100%',
+          textAlign: 'center'
+        }}>
+          <text>Logout</text>
+        </Button>
+      </Drawer>
+      <Drawer
+        title="JOBJOB Notification"
+        placement="right"
+        closable={false}
+        onClose={onCloseNoti}
+        open={openNoti}
+        key="right"
+        width={700}
+      >
 
-          <p>
-            <Button onClick={handleLogout} icon={<LoginOutlined style={{ marginLeft: '-25px' }} />}
-              style={{
-                fontSize: '18px', fontWeight: 'bold', height: '5vh',
-                marginTop: '5px', width: '100%'
-              }}>
-
-              Logout
-            </Button>
-          </p>
-
-
-
-
-
-        </Drawer>
-
-        <Header style={{ padding: 0, background: '#333333' }}>
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between', // ชิดด้านขวา
-            maxWidth: '99%'
+        
+        
+      </Drawer>
+      <Header style={{ padding: 0, background: '#333333' }}>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between', // ชิดด้านขวา
+          maxWidth: '99%'
+        }}>
+          <text style={{
+            fontSize: '50px', marginLeft: '30px',
+            fontWeight: 'bolder', color: 'white'
           }}>
-            <Link to={'/candidatehome/home'}>
-              <text style={{
-                fontSize: '50px', marginLeft: '30px',
-                fontWeight: 'bolder', color: 'white'
-              }}>
+            <span style={{ color: '#ff7518' }}>JO</span>
+            <span>B</span>
+            <span style={{ color: '#ff7518' }}>JO</span>
+            <span>B</span>
+          </text>
+          <div style={{ flex: 1 }}></div>
+          
+          <Button onClick={showNoti} icon={<BellOutlined />} style={{
+            fontSize: '0px', fontWeight: 'bold',
+            marginTop: '0px', marginLeft: '20px',
+            height: '45px',
+            width: '50px', 
+          }}>
+            
+          </Button>
+          <Button onClick={showDrawer} icon={<MenuOutlined />} style={{
+            fontSize: '18px', fontWeight: 'bold',
+            marginTop: '0px', marginLeft: '5px',
+            height: '45px',
+            width: '110px', 
+          }}>
+            MENU
+          </Button>
+          
 
-                <span style={{ color: '#ff7518' }}>JO</span>
-                <span>B</span>
-                <span style={{ color: '#ff7518' }}>JO</span>
-                <span>B</span>
-              </text>
-            </Link>
-
-            <div style={{ flex: 1 }}></div> {/* เพิ่มพื้นที่ที่ว่างเพื่อทำให้ปุ่ม Logout ชิดขวา */}
-
-            <Button onClick={showDrawer} icon={<MenuOutlined />} style={{
-              fontSize: '18px', fontWeight: 'bold', height: '45px',
-              marginTop: '0px', marginLeft: '20px'
-            }}>
-              MENU
-            </Button>
-
-          </div>
-        </Header >
-
-      </Layout>
+        </div>
+      </Header >
       {contextHolder}
       <Col xs={24} sm={24} md={24} lg={24} xl={24}>
         <div className='img-candidate' style={{ display: "grid", placeItems: "center", height: "100vh" }}>
