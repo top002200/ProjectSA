@@ -40,24 +40,26 @@ func GetUser(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": user})
 }
 
+
 // GET /user/noti/:id
 func GetUserNoti(c *gin.Context) {
-	var notification []entity.Notification
+	var notifications []entity.Notification
 	id := c.Param("id")
 
-	if err := entity.DB().Preload("Jobpost").Where("user_id = ?", id).Find(&notification).Error; err != nil {
+	if err := entity.DB().Preload("User").Preload("Candidatepost").Where("user_id = ?", id).Find(&notifications).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	// สร้างข้อมูลที่จะแสดงในหน้าเว็บ
 	var result []gin.H
-	for _, notification := range notification {
+	for _, notification := range notifications {
 		data := gin.H{
 			"ID":          notification.ID,
 			"Content":     notification.PassOrRejectionDetails,
 			"Read":        notification.Read,
-			"Description": notification.Candidatepost.Dsecrition,
+			"Topic":       notification.Candidatepost.Topic, // เข้าถึง Topic จาก Candidatepost
+			"StatusNoti":  notification.StatusNoti,
 		}
 		result = append(result, data)
 	}

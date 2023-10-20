@@ -10,6 +10,7 @@ import {
   UserDeleteOutlined,
   MenuOutlined,
 
+  
 } from '@ant-design/icons';
 
 import { Layout, Button, Card, Divider, Drawer, Row } from 'antd';
@@ -170,7 +171,7 @@ const CandidateSelection: React.FC = () => {
   const defaultColumns: (ColumnTOCF[number] & { editable?: boolean; dataIndex: string })[] = [
     {
       title: 'NO',
-      dataIndex: 'id',
+      dataIndex: 'ID',
       align: 'center',
       width: '10%',
     },

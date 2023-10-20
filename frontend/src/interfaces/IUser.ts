@@ -12,11 +12,13 @@ export interface UsersInterface {
 
 export interface NotiInterface {
     ID?: number;
-    Content?: string;
+    PassOrRejectionDetails?: string;
     Read?: boolean;
     Position?: string;
     Salary?: number;
     Description?: string;
+    Topic?: string,
+    StatusNoti?: string,
     Jobpost: {
         ID?: number;
         Position?: string;

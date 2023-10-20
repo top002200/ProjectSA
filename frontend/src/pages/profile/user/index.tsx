@@ -67,17 +67,22 @@ function ProfileUserUI() {
       setNoti(resnoti);
     }
   };
-
+ 
   const noticolumns: ColumnsType<NotiInterface> = [
     {
       title: "หัวข้อประกาศงาน",
-      dataIndex: "Description",
-      key: "description",
+      dataIndex: "Topic",
+      key: "Topic",
+    },
+    {
+      title: "สถานะ",
+      dataIndex: "StatusNoti",
+      key: "StatusNoti",
     },
     {
       title: 'รายละเอียด',
-      dataIndex: 'Content',
-      key: 'content',
+      dataIndex: "Content",
+      key: "Content",
       render: (text: string) => (
         <div style={{ textAlign: 'left' }}>
           {text.split('\n').map((item, key) => {
