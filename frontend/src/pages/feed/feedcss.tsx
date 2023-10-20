@@ -67,6 +67,8 @@ const style = {
         border: 'none'
     },
     postHeader: {
+        display: 'flex',
+        justifyContent: "space-between ",
         margin: 0,
         paddingLeft: 20,
         paddingRight: 20,

@@ -3,6 +3,7 @@ import { RegWorkInterface } from "../../interfaces/IRegWork";
 const apiUrl = "http://localhost:8080";
 
 async function CreateRegWork(data: RegWorkInterface) {
+  console.log(data)
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -13,6 +14,8 @@ async function CreateRegWork(data: RegWorkInterface) {
     .then((response) => response.json())
     .then((res) => {
       if (res.data) {
+        console.log("res.data : ")
+        console.log(res.data)
         return { status: true, message: res.data };
       } else {
         return { status: false, message: res.error };

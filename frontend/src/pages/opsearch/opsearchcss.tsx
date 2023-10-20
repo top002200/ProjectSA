@@ -133,7 +133,7 @@ const style = {
         marginRight: 20
     },
     customWidth: {
-        width: 250
+        width: 350
     },
     customWidthdes: {
         width: 130,

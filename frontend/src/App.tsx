@@ -41,7 +41,6 @@ const App: React.FC = () => {
             <Route path="/profile/user" element={<ProfileUserUI />} />
             <Route path="/privacy/user" element={<PrivacyUserUI />} />
             <Route path="/" element={<Feed />} />
-            <Route path="/opsearch" element={<Opsearch />} />
           </Routes>
         </Router>
       );
@@ -56,6 +55,7 @@ const App: React.FC = () => {
             <Route path="/candidate/post" element={<Candidatepost />} />
             <Route path="/candidatehome/home" element={<Candidatehome />} />
             <Route path="/" element={<Candidatehome />} />
+            <Route path="/opsearch" element={<Opsearch />} />
             <Route path="/operator/CandidateSelection" element={<CandidateSelection />} />
           </Routes>
         </Router>

@@ -26,7 +26,7 @@ func RegWork(c *gin.Context) {
 		CandidatepostID: newUserRegWork.CandidatepostID,
 	}
 
-	if err := entity.DB().Create(&reg).Error; err != nil {
+	if err := entity.DB().Create(&newUserRegWork).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -37,7 +37,7 @@ func RegWork(c *gin.Context) {
 // GET /post
 func ListPost(c *gin.Context) {
 	var posts []entity.Candidatepost
-	if err := entity.DB().Raw("SELECT * FROM candidateposts").Find(&posts).Error; err != nil {
+	if err := entity.DB().Preload("Operator").Raw("SELECT * FROM candidateposts").Find(&posts).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -47,7 +47,7 @@ func ListPost(c *gin.Context) {
 // //////////////////////////////
 func GetLatestWHU(c *gin.Context) {
 	var latestWHU []entity.WorkHasUser
-	if err := entity.DB().Raw("SELECT * FROM work_has_users ORDER BY ID DESC LIMIT 1").Find(&latestWHU).Error; err != nil {
+	if err := entity.DB().Preload("Candidatepost").Preload("User").Raw("SELECT * FROM work_has_users ORDER BY ID DESC LIMIT 1").Find(&latestWHU).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -133,10 +133,10 @@ func SearchWork(c *gin.Context) {
 	key := c.Param("key")
 
 	// Corrected SQL query with placeholders
-	query := "SELECT * FROM candidateposts WHERE dsecription LIKE ? OR position LIKE ? OR company_name LIKE ? LIMIT 100 OFFSET 0"
+	query := "SELECT * FROM candidateposts INNER JOIN operator_accounts ON candidateposts.operator_id = operator_accounts.id WHERE dsecrition LIKE ? OR position LIKE ? OR operator_accounts.com_name LIKE ?"
 	keyWithWildcards := "%" + key + "%"
 
-	if err := entity.DB().Raw(query, keyWithWildcards, keyWithWildcards, keyWithWildcards).Find(&search_w).Error; err != nil {
+	if err := entity.DB().Preload("Operator").Raw(query, keyWithWildcards, keyWithWildcards, keyWithWildcards).Find(&search_w).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
