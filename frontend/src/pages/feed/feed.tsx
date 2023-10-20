@@ -5,7 +5,7 @@ import person1 from "../../public/person1.jpg";
 import { GetPost, UploadImage, GetLatestWHU } from "../../services/https/feed.service";
 import { useEffect, useState, KeyboardEvent } from 'react';
 import { style } from "./feedcss"
-// import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import Swal from 'sweetalert2'
 import { CreateRegWork } from "../../services/https/feed.service";
 import { SearchWork } from "../../services/https/feed.service"
@@ -22,7 +22,7 @@ function Feed() {
         "ID": 0,
         "Position": "",
         "CompanyName": "",
-        "Description": "",
+        "Dsecrition": "",
         "PostTimestamp": "",
         "Matched": true
     }]);
@@ -32,7 +32,7 @@ function Feed() {
         "ID": 0,
         "Position": "",
         "CompanyName": "",
-        "Description": "",
+        "Dsecrition": "",
         "PostTimestamp": "",
         "Matched": true
     }]);
@@ -49,6 +49,7 @@ function Feed() {
     const getPost = async () => {
         try {
             const response = await GetPost();
+            console.log(response);
             if (!response) {
                 throw new Error('ไม่สามารถดึงข้อมูล API ได้');
             }
@@ -171,7 +172,7 @@ function Feed() {
         let post_id = newpost.ID
         let position = newpost.Position
         let company = newpost.CompanyName
-        let description = newpost.Description
+        let description = newpost.Dsecrition
         let timeStamp = newpost.PostTimestamp
 
         post.push(
