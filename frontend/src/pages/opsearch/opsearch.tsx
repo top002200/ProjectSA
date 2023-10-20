@@ -24,7 +24,9 @@ function Opsearch() {
     // Get All Post
     const [data, setData] = useState([{
         "ID": 0,
-        "Name": "",
+        "Title_name": "",
+        "First_name": "",
+        "Last_name": "",
         "Experience": "",
         "Skill": ""
     }]);
@@ -110,7 +112,7 @@ function Opsearch() {
 
         let newUser = response[i - 1]
 
-        let name = newUser.Name
+        let name = newUser.Title_name+newUser.First_name+" "+newUser.Last_name
         let skill = newUser.Skill
         let experience = newUser.Experience
 

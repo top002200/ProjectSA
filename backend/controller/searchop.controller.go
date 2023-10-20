@@ -8,11 +8,11 @@ import (
 )
 
 // GET /post
-func GetUserHWU(c *gin.Context) {
+func GetUserAll(c *gin.Context) {
 	var user []entity.User_account
 
 	// Corrected SQL query with placeholders
-	query := "SELECT * FROM users LIMIT 100 OFFSET 0"
+	query := "SELECT * FROM user_accounts LIMIT 100 OFFSET 0"
 
 	if err := entity.DB().Raw(query).Find(&user).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

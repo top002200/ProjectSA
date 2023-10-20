@@ -15,26 +15,28 @@ function Feed() {
 
     // const navigate = useNavigate();
     // const [messageApi, contextHolder] = message.useMessage();
-    const userID = 123;
+    const userID = Number(localStorage.getItem("id"))
 
     // Last Post id
     const [whul, setWhul] = useState([{
         "ID": 0,
         "Position": "",
-        "CompanyName": "",
-        "Description": "",
-        "PostTimestamp": "",
-        "Matched": true
+        "Dsecrition": "",
+        "CreatedAt": "",
+        "Operator": {
+            "Com_name": ""
+        }
     }]);
 
     // Post
     const [data, setData] = useState([{
         "ID": 0,
         "Position": "",
-        "CompanyName": "",
-        "Description": "",
-        "PostTimestamp": "",
-        "Matched": true
+        "Dsecrition": "",
+        "CreatedAt": "",
+        "Operator": {
+            "Com_name": ""
+        }
     }]);
 
     useEffect(() => {
@@ -103,8 +105,8 @@ function Feed() {
     const createReg = async (post_id: number) => {
         let data = {
             Status: false,
-            User_id: userID,
-            PostID: post_id
+            UserID: userID,
+            CandidatepostID: post_id
         }
         let res = await CreateRegWork(data);
         if (res.status) {
@@ -167,12 +169,12 @@ function Feed() {
     for (let i = 1; i <= response.length; i++) {
 
         let newpost = response[i - 1]
-
+        console.log(response)
         let post_id = newpost.ID
         let position = newpost.Position
-        let company = newpost.CompanyName
-        let description = newpost.Description
-        let timeStamp = newpost.PostTimestamp
+        let company = newpost.Operator.Com_name
+        let description = newpost.Dsecrition
+        let timeStamp = newpost.CreatedAt
 
         post.push(
             <div>
@@ -192,11 +194,8 @@ function Feed() {
                             </div>
                         </div>
                         {/* Right */}
-                        <div className="d-flex justify-content-between">
-
-                            <div>
+                        <div className="justify-content-between">
                                 <div className='d-flex justify-content-between align-items-center' style={style.position}>
-
                                     <div style={style.positiontext}>
                                         {position}
                                     </div>
@@ -204,7 +203,6 @@ function Feed() {
                                         <div style={style.regText}>สมัครงาน</div>
                                     </button>
                                 </div>
-                            </div>
                         </div>
                     </div>
 

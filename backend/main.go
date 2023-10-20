@@ -43,7 +43,7 @@ func main() {
 	r.GET("/searchwork/:key", controller.SearchWork)
 	r.POST("/upload", controller.UploadHandler)
 	r.GET("/searchuser/:key", controller.SearchUser)
-	// r.GET("/getuser", controller.GetUser)
+	r.GET("/getuser", controller.GetUserAll)
 	// Run the server
 	r.Run()
 }
