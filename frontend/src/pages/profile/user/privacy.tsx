@@ -219,7 +219,7 @@ function PrivacyUserUI() {
           <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" style={{ cursor: 'pointer', transform: 'scale(2)' }}>
 
           </Avatar>
-          <Link to="/login/user">
+          <a href="/login/user" style={{ textDecoration: "none" }}>
             <text style={{
               fontSize: '20px', marginLeft: '25px',
               fontWeight: 'bolder', color: 'white'
@@ -228,7 +228,7 @@ function PrivacyUserUI() {
               <span>&nbsp;&nbsp;</span>
               <span style={{ color: '#ff7518' }}>{lname}</span>
             </text>
-          </Link>
+          </a>
 
         </Row>
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}></div>
@@ -285,20 +285,22 @@ function PrivacyUserUI() {
           justifyContent: 'space-between', // ชิดด้านขวา
           maxWidth: '99%'
         }}>
-          <text style={{
-            fontSize: '50px', marginLeft: '30px',
-            fontWeight: 'bolder', color: 'white'
-          }}>
-            <span style={{ color: '#ff7518' }}>JO</span>
-            <span>B</span>
-            <span style={{ color: '#ff7518' }}>JO</span>
-            <span>B</span>
-          </text>
+          <a href="/" style={{ textDecoration: "none" }}>
+            <text style={{
+              fontSize: '50px', marginLeft: '30px',
+              fontWeight: 'bolder', color: 'white'
+            }}>
+              <span style={{ color: '#ff7518' }}>JO</span>
+              <span>B</span>
+              <span style={{ color: '#ff7518' }}>JO</span>
+              <span>B</span>
+            </text>
+          </a>
           <div style={{ flex: 1 }}></div>
 
           <Button onClick={showNoti} icon={<BellOutlined />} style={{
             fontSize: '0px', fontWeight: 'bold',
-            marginTop: '0px', marginLeft: '20px',
+            marginTop: '-15px', marginLeft: '20px',
             height: '45px',
             width: '50px',
           }}>
@@ -306,7 +308,7 @@ function PrivacyUserUI() {
           </Button>
           <Button onClick={showDrawer} icon={<MenuOutlined />} style={{
             fontSize: '18px', fontWeight: 'bold',
-            marginTop: '0px', marginLeft: '5px',
+            marginTop: '-15px', marginLeft: '5px',
             height: '45px',
             width: '110px',
           }}>

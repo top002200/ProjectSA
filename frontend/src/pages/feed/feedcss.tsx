@@ -7,7 +7,8 @@ const style = {
         paddingBottom: 20,
     },
     logo: {
-        width: 150
+        width: 150,
+        // marginLeft: 30
     },
     person: {
         width: 38,
@@ -27,6 +28,8 @@ const style = {
         backgroundColor: "#eee",
         marginLeft: 30,
         borderRadius: 50,
+        height: 38,
+        marginBottom: 25
     },
     profilebg: {
         backgroundColor: "#3F3F3F",

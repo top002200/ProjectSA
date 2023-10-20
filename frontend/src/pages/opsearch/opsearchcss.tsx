@@ -27,6 +27,8 @@ const style = {
         backgroundColor: "#eee",
         marginLeft: 30,
         borderRadius: 50,
+        height: 38,
+        marginBottom: 20
     },
     profilebg: {
         backgroundColor: "#3F3F3F",

@@ -7,18 +7,51 @@ import { useEffect, useState, KeyboardEvent } from 'react';
 import { style } from "./opsearchcss"
 // import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import Swal from 'sweetalert2'
-import { message } from "antd";
+import { Avatar, Button, Drawer, Row, message } from "antd";
 import { CreateRegWork } from "../../services/https/feed.service";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SearchUser, GetUserHWU } from "../../services/https/opsearch.service"
 import { Helmet } from 'react-helmet';
 import exp from "constants";
+import { Footer, Header } from "antd/es/layout/layout";
+import {
+    SolutionOutlined,
+    NotificationOutlined,
+    LoginOutlined,
+    MenuOutlined,
+    IdcardOutlined,
+    SafetyOutlined,
+} from "@ant-design/icons";
 
 function Opsearch() {
 
     // const navigate = useNavigate();
     const [messageApi, contextHolder] = message.useMessage();
-    const userID = 123;
+    const [openMenu, setMenuOpen] = useState(false);
+    const [comname, setComname] = useState();
+
+    const handleLogout = () => {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("id");
+        localStorage.removeItem("result");
+        window.location.href = "/";
+    }
+
+    const handleProfile = () => {
+        window.location.href = "/profile/operator";
+    }
+
+    const handleSecurity = () => {
+        window.location.href = "/privacy/operator";
+    }
+
+    const showDrawer = () => {
+        setMenuOpen(true);
+    };
+
+    const onClose = () => {
+        setMenuOpen(false);
+    };
 
 
     // Get All Post
@@ -72,38 +105,6 @@ function Opsearch() {
         }
     };
 
-    // LogData
-    const logData = () => {
-        console.log("Post : " + data);
-        console.log("Search : " + response);
-    }
-
-    // Register
-    const createReg = async (post_id: number) => {
-        console.log("Hiiiiii");
-        let data = {
-            Status: false,
-            User_id: userID,
-            PostID: post_id
-        }
-        console.log(data)
-        let res = await CreateRegWork(data);
-        if (res.status) {
-            console.log("Create Success!!!")
-            messageApi.open({
-                type: "success",
-                content: "บันทึกข้อมูลสำเร็จ",
-            });
-        } else {
-            console.log("Create Error!!!")
-            messageApi.open({
-                type: "error",
-                content: "บันทึกข้อมูลไม่สำเร็จ",
-            });
-        }
-    }
-
-
 
     /// Post Gen
     const worker = [];
@@ -112,7 +113,7 @@ function Opsearch() {
 
         let newUser = response[i - 1]
 
-        let name = newUser.Title_name+newUser.First_name+" "+newUser.Last_name
+        let name = newUser.Title_name + newUser.First_name + " " + newUser.Last_name
         let skill = newUser.Skill
         let experience = newUser.Experience
 
@@ -132,7 +133,7 @@ function Opsearch() {
                                 </div>
                             </div>
                         </div>
-                        
+
                         {/* Right */}
                         <div className='col d-flex flex-column bd-highlight align-items-left justify-content-center'>
                             <div className="d-flex justify-content-start">
@@ -161,12 +162,90 @@ function Opsearch() {
             <Helmet>
                 <title>JOBJOB : Search worker</title>
             </Helmet>
+            <Drawer
+                title="JOBJOB MENU"
+                placement="right"
+                closable={false}
+                onClose={onClose}
+                open={openMenu}
+                key="right"
+            >
 
-            <div className='d-flex justify-content-between align-items-center sticky-top' style={style.nav}>
-                <div className="d-flex">
-                    <a href="/">
-                        <img src={logo} alt="" style={style.logo} />
-                    </a>
+                <Row style={{ marginTop: '10px', marginLeft: '20px' }}>
+                    <Avatar src="https://xsgames.co/randomoperators/avatar.php?g=pixel" style={{ cursor: 'pointer', transform: 'scale(2)' }}>
+
+                    </Avatar>
+                    <Link to="/login/operator">
+                        <text style={{
+                            fontSize: '20px', marginLeft: '25px',
+                            fontWeight: 'bolder', color: 'white'
+                        }}>
+                            <span style={{ color: '#000000' }}>{comname}</span>
+                        </text>
+                    </Link>
+
+                </Row>
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}></div>
+                <Button onClick={handleProfile} icon={<IdcardOutlined />} style={{
+                    fontSize: '18px', fontWeight: 'bold', height: '45px',
+                    marginTop: '30px',
+                    width: '100%',
+                    textAlign: 'center'
+                }}>
+                    Profile
+                </Button>
+                <Link to="/candidatehome/home">
+                    <Button icon={<NotificationOutlined />} style={{
+                        fontSize: '18px', fontWeight: 'bold', height: '45px',
+                        marginTop: '5px', width: '100%', textAlign: 'center'
+                    }}>
+                        Job Post
+                    </Button>
+                </Link>
+                <Link to="/operator/CandidateSelection">
+                    <Button icon={<SolutionOutlined />} style={{
+                        fontSize: '18px', fontWeight: 'bold', height: '45px',
+                        marginTop: '5px', width: '100%', textAlign: 'center'
+                    }}>
+                        Candidate
+                    </Button>
+                </Link>
+                <Button onClick={handleSecurity} icon={<SafetyOutlined />} style={{
+                    fontSize: '18px', fontWeight: 'bold', height: '45px',
+                    marginTop: '5px',
+                    width: '100%',
+                    textAlign: 'center'
+                }}>
+                    Privacy
+                </Button>
+                <Button onClick={handleLogout} icon={<LoginOutlined />} style={{
+                    fontSize: '18px', fontWeight: 'bold', height: '45px',
+                    marginTop: '5px',
+                    width: '100%',
+                    textAlign: 'center'
+                }}>
+                    <text>Logout</text>
+                </Button>
+            </Drawer>
+            <Header style={{ padding: 0, background: '#333333' }}>
+
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between', // ชิดด้านขวา
+                    maxWidth: '99%'
+                }}>
+                    <Link to={'/candidatehome/home'}>
+                        <text style={{
+                            fontSize: '50px', marginLeft: '30px',
+                            fontWeight: 'bolder', color: 'white'
+                        }}>
+                            <span style={{ color: '#ff7518' }}>JO</span>
+                            <span>B</span>
+                            <span style={{ color: '#ff7518' }}>JO</span>
+                            <span>B</span>
+                        </text>
+                    </Link>
                     <div>
                         <input
                             type="text"
@@ -175,16 +254,21 @@ function Opsearch() {
                             onKeyPress={handleEnterKeyPress} // Add event listener
                         />
                     </div>
+                    <div style={{ flex: 1 }}></div>
+
+                    <Button onClick={showDrawer} icon={<MenuOutlined />} style={{
+                        fontSize: '18px', fontWeight: 'bold',
+                        marginTop: '-15px', marginLeft: '5px',
+                        height: '45px',
+                        width: '110px',
+                    }}>
+                        MENU
+                    </Button>
+
+
                 </div>
-                <div>
-                    <a href="" style={{ textDecoration: "none" }}>
-                        <div className='d-flex justify-content-between align-items-center' style={style.profilebg}>
-                            <img src={person1} alt="" style={style.person} />
-                            <div style={style.nameText}>Anuwat Passaphan</div>
-                        </div>
-                    </a>
-                </div>
-            </div>
+
+            </Header >
 
             <div style={style.postbg} className="d-flex justify-content-center">
                 <div style={style.postContainer} className="d-flex justify-content-center flex-column">

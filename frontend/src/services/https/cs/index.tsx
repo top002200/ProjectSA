@@ -58,7 +58,7 @@ async function CreateCandidate(data: DataWHU[]) {
 
 
 
-async function GetCandidate() {
+async function GetCandidate(id: Number | undefined) {
     const requestOptions = {
       method: "GET",
       headers: {
@@ -66,7 +66,7 @@ async function GetCandidate() {
       },
     };
   
-    let res = await fetch(`${apiUrl}/candidate`, requestOptions)
+    let res = await fetch(`${apiUrl}/candidate/${id}`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {

@@ -4,6 +4,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/supachaicharoen/jobjob-project/controller"
 	"github.com/supachaicharoen/jobjob-project/entity"
+
+	"net/http"
+	"os"
+	"path/filepath"
 )
 
 func main() {
@@ -34,7 +38,7 @@ func main() {
 	r.PATCH("/candidateposts", controller.UpdateCandidatepost)
 	r.DELETE("/candidateposts/delete/:id", controller.DeleteCandidatepost)
 	//CS
-	r.GET("/candidate", controller.ListCandidate)
+	r.GET("/candidate/:id", controller.ListCandidate)
 	r.POST("/createcandidates", controller.CreateCandidate)
 	//WHU
 	r.POST("/regwork", controller.RegWork)
@@ -45,6 +49,19 @@ func main() {
 	r.GET("/searchuser/:key", controller.SearchUser)
 	r.GET("/getuser", controller.GetUserAll)
 	// Run the server
+	r.GET("/resume/:filename", func(c *gin.Context) {
+		filename := c.Param("filename")
+		filePath := filepath.Join("resume", filename)
+
+		// Check if the file exists.
+		_, err := os.Stat(filePath)
+		if os.IsNotExist(err) {
+			c.JSON(http.StatusNotFound, gin.H{"error": "File not found"})
+			return
+		}
+
+		c.File(filePath)
+	})
 	r.Run()
 }
 

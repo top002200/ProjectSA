@@ -171,7 +171,7 @@ function PrivacyOperator() {
           <Avatar src="https://xsgames.co/randomoperators/avatar.php?g=pixel" style={{ cursor: 'pointer', transform: 'scale(2)' }}>
 
           </Avatar>
-          <Link to="/login/operator">
+          <Link to="/login/operator" style={{ textDecoration: "none" }}>
             <text style={{
               fontSize: '20px', marginLeft: '25px',
               fontWeight: 'bolder', color: 'white'
@@ -230,7 +230,7 @@ function PrivacyOperator() {
           justifyContent: 'space-between', // ชิดด้านขวา
           maxWidth: '99%'
         }}>
-          <Link to={'/candidatehome/home'}>
+          <a href="/" style={{ textDecoration: "none" }}>
             <text style={{
               fontSize: '50px', marginLeft: '30px',
               fontWeight: 'bolder', color: 'white'
@@ -240,7 +240,7 @@ function PrivacyOperator() {
               <span style={{ color: '#ff7518' }}>JO</span>
               <span>B</span>
             </text>
-          </Link>
+          </a>
           <div style={{ flex: 1 }}></div>
 
           <Button onClick={showDrawer} icon={<MenuOutlined />} style={{

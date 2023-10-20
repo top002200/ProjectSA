@@ -25,6 +25,8 @@ import TextArea from 'antd/es/input/TextArea';
 import Avatar from 'antd/es/avatar/avatar';
 import { Link } from 'react-router-dom';
 import { CreateCandidate, GetCandidate } from '../../../services/https/cs';
+import { GetOperators } from '../../../services/https/operator';
+import { OperatorsInterface } from '../../../interfaces/IOperator';
 
 
 
@@ -34,11 +36,14 @@ type ColumnTOCF = Exclude<EditableTableProps['columns'], undefined>;
 
 
 
+
 const CandidateSelection: React.FC = () => {
+  const operatorID = localStorage.getItem('id');
   const [openMenu, setMenuOpen] = useState(false);
   const [open, setOpen] = useState(false);
   const [comname, setComname] = useState();
   let [dataCS, setDataCS] = useState<DataWHU[]>([]);
+  const [operator, setOperators] = useState<OperatorsInterface>();
 
   const handleSecurity = () => {
     window.location.href = "/privacy/operator";
@@ -57,13 +62,22 @@ const CandidateSelection: React.FC = () => {
     setMenuOpen(false);
   };
 
+  const getOperatorById = async () => {
+    let res = await GetOperators(Number(operatorID));
+    if (res) {
+      setOperators(res);
+      setComname(res.Com_name);
+    }
+  };
+
 
   useEffect(() => {
     GetDataCS();
+    getOperatorById();
   }, []);
 
   const GetDataCS = async () => {
-    let res = await GetCandidate();
+    let res = await GetCandidate(Number(operatorID));
     if (res) {
       // รับข้อมูลจาก GetCandidate และตั้งค่าให้ data เพื่อให้ columnsCandidate ใช้ข้อมูลจาก dataCS
       setDataCS(res);
@@ -73,7 +87,6 @@ const CandidateSelection: React.FC = () => {
 
 
   const { Header, Content } = Layout;
-
 
 
   const columnsCandidate: ColumnsType<DataWHU> = [
@@ -95,6 +108,19 @@ const CandidateSelection: React.FC = () => {
       dataIndex: 'Detail',
       align: 'center',
       width: '40%',
+    },
+    {
+      title: 'Resume',
+      dataIndex: 'Resume',
+      align: 'center',
+      render: (dataIndex) => (
+
+        <div>
+          <Link to={"http://localhost:8080" + dataIndex.slice(1)} target="_blank">
+            Resume
+          </Link>
+        </div>
+      ),
     },
     {
 
@@ -140,7 +166,7 @@ const CandidateSelection: React.FC = () => {
 
   const handleAddToConfirm = (record: DataWHU) => {
     const newData: DataWHU = {
-      ID: count,
+      ID: record.UserID,
       UserName: record.UserName,
       Position: record.Position,
       Detail: record.Detail,
@@ -191,12 +217,6 @@ const CandidateSelection: React.FC = () => {
 
 
   const defaultColumns: (ColumnTOCF[number] & { editable?: boolean; dataIndex: string })[] = [
-    {
-      title: 'NO',
-      dataIndex: 'ID',
-      align: 'center',
-      width: '10%',
-    },
     {
       title: 'Name',
       dataIndex: 'UserName',
@@ -260,6 +280,7 @@ const CandidateSelection: React.FC = () => {
 
 
   async function handleConfirmClick() {
+
     if (jobInterviewDetail && (isPass || isReject)) {
       if (dataSource.length >= 1) {
         const confirmedDataArray = dataSource.map((record) => ({
@@ -359,7 +380,7 @@ const CandidateSelection: React.FC = () => {
           <Avatar src="https://xsgames.co/randomoperators/avatar.php?g=pixel" style={{ cursor: 'pointer', transform: 'scale(2)' }}>
 
           </Avatar>
-          <Link to="/login/operator">
+          <Link to="/login/operator" style={{ textDecoration: "none" }}>
             <text style={{
               fontSize: '20px', marginLeft: '25px',
               fontWeight: 'bolder', color: 'white'
@@ -418,7 +439,7 @@ const CandidateSelection: React.FC = () => {
           justifyContent: 'space-between', // ชิดด้านขวา
           maxWidth: '99%'
         }}>
-          <Link to={'/candidatehome/home'}>
+          <a href="/" style={{ textDecoration: "none" }}>
             <text style={{
               fontSize: '50px', marginLeft: '30px',
               fontWeight: 'bolder', color: 'white'
@@ -428,7 +449,7 @@ const CandidateSelection: React.FC = () => {
               <span style={{ color: '#ff7518' }}>JO</span>
               <span>B</span>
             </text>
-          </Link>
+          </a>
           <div style={{ flex: 1 }}></div>
 
           <Button onClick={showDrawer} icon={<MenuOutlined />} style={{

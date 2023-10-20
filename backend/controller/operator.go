@@ -78,11 +78,16 @@ func UpdateOperator(c *gin.Context) {
 	}
 
 	if operator.Operator_email != result.Operator_email {
-		var usedcom entity.Operator_account
-		if err := entity.DB().Where("com_name = ?", operator.Com_name).First(&usedcom).Error; err == nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "บัญชีบริษัทนี้มีอยู่แล้วในฐานข้อมูล"})
+		var existingUser entity.User_account
+		if err := entity.DB().Where("com_name = ?", operator.Com_name).First(&existingUser).Error; err == nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "อีเมลนี้มีผู้ใช้แล้ว"})
 			return
 		}
+	}
+
+	if err := entity.DB().Model(&result).Updates(&operator).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{"data": operator})

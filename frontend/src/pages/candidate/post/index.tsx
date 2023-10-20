@@ -124,7 +124,7 @@ function Candidatepost() {
           <Avatar src="https://xsgames.co/randomoperators/avatar.php?g=pixel" style={{ cursor: 'pointer', transform: 'scale(2)' }}>
 
           </Avatar>
-          <Link to="/login/operator">
+          <Link to="/login/operator" style={{ textDecoration: "none" }}>
             <text style={{
               fontSize: '20px', marginLeft: '25px',
               fontWeight: 'bolder', color: 'white'

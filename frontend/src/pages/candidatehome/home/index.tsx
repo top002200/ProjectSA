@@ -31,6 +31,7 @@ import {
   IdcardOutlined,
   MenuOutlined,
   DeleteOutlined,
+  SearchOutlined,
 } from "@ant-design/icons";
 
 import "./style.css";
@@ -42,6 +43,8 @@ import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import { Header } from 'antd/es/layout/layout';
 import { ColumnsType, ExpandableConfig } from 'antd/es/table/interface';
 import { DeletePost } from '../../../services/https/candidate';
+import { GetOperators } from '../../../services/https/operator';
+import { OperatorsInterface } from '../../../interfaces/IOperator';
 const { TextArea } = Input;
 
 
@@ -58,6 +61,9 @@ function Candidatehome() {
   const [opendelete, setOpenDelete] = useState(false);
   const [openMenu, setMenuOpen] = useState(false);
   const [comname, setComname] = useState();
+  const [operator, setOperators] = useState<OperatorsInterface>();
+  
+  
 
 
   const operatorID = localStorage.getItem('id');
@@ -202,7 +208,13 @@ function Candidatehome() {
     }
   };
 
-
+  const getOperatorById = async () => {
+    let res = await GetOperators(Number(operatorID));
+    if (res) {
+      setOperators(res);
+      setComname(res.Com_name);
+    }
+  };
 
 
   const [size, setSize] = useState<SizeType>('large'); // default is 'middle'
@@ -220,6 +232,7 @@ function Candidatehome() {
 
   useEffect(() => {
     getPosts();
+    getOperatorById();
   }, []);
 
   const handleSecurity = () => {
@@ -253,7 +266,7 @@ function Candidatehome() {
           <Avatar src="https://xsgames.co/randomoperators/avatar.php?g=pixel" style={{ cursor: 'pointer', transform: 'scale(2)' }}>
 
           </Avatar>
-          <Link to="/login/operator">
+          <Link to="/login/operator" style={{ textDecoration: "none" }}>
             <text style={{
               fontSize: '20px', marginLeft: '25px',
               fontWeight: 'bolder', color: 'white'
@@ -312,7 +325,7 @@ function Candidatehome() {
           justifyContent: 'space-between', // ชิดด้านขวา
           maxWidth: '99%'
         }}>
-          <Link to={'/candidatehome/home'}>
+          <a href="/" style={{ textDecoration: "none" }}>
             <text style={{
               fontSize: '50px', marginLeft: '30px',
               fontWeight: 'bolder', color: 'white'
@@ -322,7 +335,7 @@ function Candidatehome() {
               <span style={{ color: '#ff7518' }}>JO</span>
               <span>B</span>
             </text>
-          </Link>
+          </a>
           <div style={{ flex: 1 }}></div>
 
           <Button onClick={showDrawer} icon={<MenuOutlined />} style={{
@@ -346,7 +359,7 @@ function Candidatehome() {
                 <p className="div">
                   {/* <span className="space2"></span> */}
                   <Row >
-                    <Col xs={12} sm={12} md={12} lg={12} xl={12}>
+                    <Col xs={8} sm={8} md={8} lg={8} xl={8}>
                       <Link to='/candidate/post'>
                         <Button style={{
                           fontSize: '50px', // เพิ่มขนาดของไอคอนเป็น 24px (หรือค่าที่คุณต้องการ)
@@ -358,9 +371,8 @@ function Candidatehome() {
                           <FormOutlined style={{ color: 'green ' }} /> {/* คงความเหมือนเดิมของไอคอน */}
                         </Button>
                       </Link>
-
                     </Col>
-                    <Col xs={12} sm={12} md={12} lg={12} xl={12}>
+                    <Col xs={8} sm={12} md={8} lg={8} xl={8}>
                       <Link to='/operator/CandidateSelection'>
                         <Button style={{
                           fontSize: '50px', // เพิ่มขนาดของไอคอนเป็น 24px (หรือค่าที่คุณต้องการ)
@@ -370,6 +382,19 @@ function Candidatehome() {
                           marginLeft: '0%',
                         }}>
                           <CopyOutlined style={{ color: 'red' }} /> {/* คงความเหมือนเดิมของไอคอน */}
+                        </Button>
+                      </Link>
+                    </Col>
+                    <Col xs={8} sm={8} md={8} lg={8} xl={8}>
+                      <Link to='/opsearch'>
+                        <Button style={{
+                          fontSize: '50px', // เพิ่มขนาดของไอคอนเป็น 24px (หรือค่าที่คุณต้องการ)
+                          fontWeight: 'bold',
+                          height: '100%',
+                          marginTop: '-5%',
+                          marginLeft: '120%',
+                        }}>
+                          <SearchOutlined style={{ color: 'blue' }} /> {/* คงความเหมือนเดิมของไอคอน */}
                         </Button>
                       </Link>
                     </Col>
@@ -392,13 +417,19 @@ function Candidatehome() {
               </div>
               <Row style={{ marginRight: '-110%' }}>
                 <Col xs={8} sm={8} md={8} lg={8} xl={8}>
-                  <Link to='/candidate/post' className='custom-button3' type="link" style={{ marginLeft: '-80%', fontSize: '16px', color: 'green' }}>
+                  <Link to='/candidate/post' className='custom-button3' type="link" style={{ marginLeft: '-55%', fontSize: '16px', color: 'green' }}>
                     <text>โพสต์ประกาศงาน</text>
                   </Link>
                 </Col>
                 <Col xs={8} sm={8} md={8} lg={8} xl={8}>
-                  <Link to='/operator/CandidateSelection' className='custom-button3' type="link" style={{ marginLeft: '-30%', marginRight: '20px', fontSize: '16px', color: 'red' }}>
+                  <Link to='/operator/CandidateSelection' className='custom-button3' type="link" style={{ marginLeft: '-50%', marginRight: '20px', fontSize: '16px', color: 'red' }}>
                     <text>รายชื่อผู้สมัคร</text>
+
+                  </Link>
+                </Col>
+                <Col xs={8} sm={8} md={8} lg={8} xl={8}>
+                  <Link to='/opsearch' className='custom-button3' type="link" style={{ marginLeft: '-50%', marginRight: '20px', fontSize: '16px', color: 'blue' }}>
+                    <text>ค้นหาผู้หางาน</text>
 
                   </Link>
                 </Col>

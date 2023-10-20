@@ -9,8 +9,17 @@ import (
 
 func ListCandidate(c *gin.Context) {
 	var workHasUsers []entity.WorkHasUser
-
-	if err := entity.DB().Preload("Candidatepost").Preload("User").Preload("Candidatepost").Where("status = 0").
+	// type DataResult struct {
+	// 	UserID          int
+	// 	UserName        string
+	// 	Position        string
+	// 	Detail          string
+	// 	CandidatepostID string
+	// 	Resume          string
+	// }
+	// var data_result []DataResult
+	id := c.Param("id")
+	if err := entity.DB().Preload("User").Preload("Candidatepost").Preload("Resumes").Raw("SELECT * FROM work_has_users INNER JOIN candidateposts ON work_has_users.candidatepost_id = candidateposts.id INNER JOIN resumes ON resumes.work_has_user_id = work_has_users.id WHERE candidateposts.operator_id = ? AND status = 0", id).
 		Find(&workHasUsers).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -21,10 +30,11 @@ func ListCandidate(c *gin.Context) {
 	for _, workHasUser := range workHasUsers {
 		data := gin.H{
 			"UserID":          workHasUser.User.ID,
-			"UserName":        workHasUser.User.Title_name + ". " + workHasUser.User.First_name + " " + workHasUser.User.Last_name,
+			"UserName":        workHasUser.User.Title_name + workHasUser.User.First_name + " " + workHasUser.User.Last_name,
 			"Position":        workHasUser.Candidatepost.Position,
 			"Detail":          workHasUser.User.Experience + ", " + workHasUser.User.Skill,
 			"CandidatepostID": workHasUser.CandidatepostID,
+			"Resume":          workHasUser.Resumes[0].File,
 		}
 		result = append(result, data)
 	}
