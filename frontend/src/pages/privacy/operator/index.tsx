@@ -42,7 +42,11 @@ function PrivacyOperator() {
   const [componentEnable, setComponentEnable] = useState<boolean>(false);
   const [openNoti, setNotiOpen] = useState(false);
   const [openMenu, setMenuOpen] = useState(false);
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 9ba296fa5ab0d6b9c7ac2b6157990da247daee3d
 
   const operatorID = localStorage.getItem('id'); // รับค่าจาก localStorage
 
@@ -130,6 +134,18 @@ function PrivacyOperator() {
 
   const onClose = () => {
     setMenuOpen(false);
+<<<<<<< HEAD
+=======
+  };
+
+  // Noti
+  const showNoti = () => {
+    setNotiOpen(true);
+  };
+
+  const onCloseNoti = () => {
+    setNotiOpen(false);
+>>>>>>> 9ba296fa5ab0d6b9c7ac2b6157990da247daee3d
   };
 
   // ModelDelete
@@ -167,7 +183,7 @@ function PrivacyOperator() {
         key="right"
       >
 
-        <Row style={{ marginTop: '10px', marginLeft: '20px' }}>
+        <Row style={{ marginTop: '10px', marginLeft: '20px'}}>
           <Avatar src="https://xsgames.co/randomoperators/avatar.php?g=pixel" style={{ cursor: 'pointer', transform: 'scale(2)' }}>
 
           </Avatar>
@@ -191,6 +207,7 @@ function PrivacyOperator() {
           Profile
         </Button>
         <Link to="/candidatehome/home">
+<<<<<<< HEAD
           <Button icon={<NotificationOutlined />} style={{
             fontSize: '18px', fontWeight: 'bold', height: '45px',
             marginTop: '5px', width: '100%', textAlign: 'center'
@@ -205,6 +222,22 @@ function PrivacyOperator() {
           }}>
             Candidate
           </Button>
+=======
+        <Button icon={<NotificationOutlined />} style={{
+              fontSize: '18px', fontWeight: 'bold', height: '45px',
+              marginTop: '5px', width: '100%',textAlign: 'center'
+            }}> 
+              Job Post
+        </Button>
+        </Link>
+        <Link to="/operator/CandidateSelection">
+        <Button icon={<SolutionOutlined />} style={{
+              fontSize: '18px', fontWeight: 'bold', height: '45px',
+              marginTop: '5px', width: '100%',textAlign: 'center'
+            }}>
+              Candidate
+        </Button>
+>>>>>>> 9ba296fa5ab0d6b9c7ac2b6157990da247daee3d
         </Link>
         <Button onClick={handleSecurity} icon={<SafetyOutlined />} style={{
           fontSize: '18px', fontWeight: 'bold', height: '45px',
@@ -242,15 +275,28 @@ function PrivacyOperator() {
             </text>
           </Link>
           <div style={{ flex: 1 }}></div>
+<<<<<<< HEAD
 
+=======
+          
+          <Button onClick={showNoti} icon={<BellOutlined />} style={{
+            fontSize: '0px', fontWeight: 'bold',
+            marginTop: '0px', marginLeft: '20px',
+            height: '45px',
+            width: '50px', 
+          }}>
+            
+          </Button>
+>>>>>>> 9ba296fa5ab0d6b9c7ac2b6157990da247daee3d
           <Button onClick={showDrawer} icon={<MenuOutlined />} style={{
             fontSize: '18px', fontWeight: 'bold',
             marginTop: '-15px', marginLeft: '5px',
             height: '45px',
-            width: '110px',
+            width: '110px', 
           }}>
             MENU
           </Button>
+          
 
 
         </div>

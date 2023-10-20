@@ -44,6 +44,10 @@ function Candidatepost() {
   const [form] = Form.useForm();
   const [passwordError, setPasswordError] = useState('');
   const [openMenu, setMenuOpen] = useState(false);
+<<<<<<< HEAD
+=======
+  const [openNoti, setNotiOpen] = useState(false);
+>>>>>>> 9ba296fa5ab0d6b9c7ac2b6157990da247daee3d
   const [comname, setComname] = useState();
   
 
@@ -98,6 +102,18 @@ function Candidatepost() {
 
   const onClose = () => {
     setMenuOpen(false);
+<<<<<<< HEAD
+=======
+  };
+
+  // Noti
+  const showNoti = () => {
+    setNotiOpen(true);
+  };
+
+  const onCloseNoti = () => {
+    setNotiOpen(false);
+>>>>>>> 9ba296fa5ab0d6b9c7ac2b6157990da247daee3d
   };
 
 
@@ -176,6 +192,22 @@ function Candidatepost() {
           <text>Logout</text>
         </Button>
       </Drawer>
+<<<<<<< HEAD
+=======
+      <Drawer
+        title="JOBJOB Notification"
+        placement="right"
+        closable={false}
+        onClose={onCloseNoti}
+        open={openNoti}
+        key="right"
+        width={700}
+      >
+
+        
+        
+      </Drawer>
+>>>>>>> 9ba296fa5ab0d6b9c7ac2b6157990da247daee3d
       <Header style={{ padding: 0, background: '#333333' }}>
         <div style={{
           display: 'flex',
@@ -194,6 +226,17 @@ function Candidatepost() {
           </text>
           <div style={{ flex: 1 }}></div>
           
+<<<<<<< HEAD
+=======
+          <Button onClick={showNoti} icon={<BellOutlined />} style={{
+            fontSize: '0px', fontWeight: 'bold',
+            marginTop: '0px', marginLeft: '20px',
+            height: '45px',
+            width: '50px', 
+          }}>
+            
+          </Button>
+>>>>>>> 9ba296fa5ab0d6b9c7ac2b6157990da247daee3d
           <Button onClick={showDrawer} icon={<MenuOutlined />} style={{
             fontSize: '18px', fontWeight: 'bold',
             marginTop: '0px', marginLeft: '5px',

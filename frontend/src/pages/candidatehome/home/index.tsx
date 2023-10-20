@@ -56,9 +56,16 @@ function Candidatehome() {
   const [modalText, setModalText] = useState<String>();
   const [open, setOpen] = useState(false);
   const [opendelete, setOpenDelete] = useState(false);
+<<<<<<< HEAD
   const [openMenu, setMenuOpen] = useState(false);
   const [comname, setComname] = useState();
 
+=======
+  const [openNoti, setNotiOpen] = useState(false);
+  const [openMenu, setMenuOpen] = useState(false);
+  const [comname, setComname] = useState();
+  
+>>>>>>> 9ba296fa5ab0d6b9c7ac2b6157990da247daee3d
 
   const operatorID = localStorage.getItem('id');
 
@@ -66,7 +73,11 @@ function Candidatehome() {
     let res = await GetCandidatepost(Number(operatorID));
     if (res) {
       setPosts(res);
+<<<<<<< HEAD
 
+=======
+      
+>>>>>>> 9ba296fa5ab0d6b9c7ac2b6157990da247daee3d
     }
   };
 
@@ -237,6 +248,18 @@ function Candidatehome() {
     setMenuOpen(false);
   };
 
+<<<<<<< HEAD
+=======
+  // Noti
+  const showNoti = () => {
+    setNotiOpen(true);
+  };
+
+  const onCloseNoti = () => {
+    setNotiOpen(false);
+  };
+
+>>>>>>> 9ba296fa5ab0d6b9c7ac2b6157990da247daee3d
 
   return (
     <>
@@ -249,7 +272,11 @@ function Candidatehome() {
         key="right"
       >
 
+<<<<<<< HEAD
         <Row style={{ marginTop: '10px', marginLeft: '20px' }}>
+=======
+        <Row style={{ marginTop: '10px', marginLeft: '20px'}}>
+>>>>>>> 9ba296fa5ab0d6b9c7ac2b6157990da247daee3d
           <Avatar src="https://xsgames.co/randomoperators/avatar.php?g=pixel" style={{ cursor: 'pointer', transform: 'scale(2)' }}>
 
           </Avatar>
@@ -273,6 +300,7 @@ function Candidatehome() {
           Profile
         </Button>
         <Link to="/candidatehome/home">
+<<<<<<< HEAD
           <Button icon={<NotificationOutlined />} style={{
             fontSize: '18px', fontWeight: 'bold', height: '45px',
             marginTop: '5px', width: '100%', textAlign: 'center'
@@ -334,6 +362,88 @@ function Candidatehome() {
             MENU
           </Button>
 
+=======
+        <Button icon={<NotificationOutlined />} style={{
+              fontSize: '18px', fontWeight: 'bold', height: '45px',
+              marginTop: '5px', width: '100%',textAlign: 'center'
+            }}> 
+              Job Post
+        </Button>
+        </Link>
+        <Link to="/operator/CandidateSelection">
+        <Button icon={<SolutionOutlined />} style={{
+              fontSize: '18px', fontWeight: 'bold', height: '45px',
+              marginTop: '5px', width: '100%',textAlign: 'center'
+            }}>
+              Candidate
+        </Button>
+        </Link>
+        <Button onClick={handleSecurity} icon={<SafetyOutlined />} style={{
+          fontSize: '18px', fontWeight: 'bold', height: '45px',
+          marginTop: '5px',
+          width: '100%',
+          textAlign: 'center'
+        }}>
+          Privacy
+        </Button>
+        <Button onClick={handleLogout} icon={<LoginOutlined />} style={{
+          fontSize: '18px', fontWeight: 'bold', height: '45px',
+          marginTop: '5px',
+          width: '100%',
+          textAlign: 'center'
+        }}>
+          <text>Logout</text>
+        </Button>
+      </Drawer>
+      <Drawer
+        title="JOBJOB Notification"
+        placement="right"
+        closable={false}
+        onClose={onCloseNoti}
+        open={openNoti}
+        key="right"
+        width={700}
+      >
+
+        
+        
+      </Drawer>
+      <Header style={{ padding: 0, background: '#333333' }}>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between', // ชิดด้านขวา
+          maxWidth: '99%'
+        }}>
+          <text style={{
+            fontSize: '50px', marginLeft: '30px',
+            fontWeight: 'bolder', color: 'white'
+          }}>
+            <span style={{ color: '#ff7518' }}>JO</span>
+            <span>B</span>
+            <span style={{ color: '#ff7518' }}>JO</span>
+            <span>B</span>
+          </text>
+          <div style={{ flex: 1 }}></div>
+          
+          <Button onClick={showNoti} icon={<BellOutlined />} style={{
+            fontSize: '0px', fontWeight: 'bold',
+            marginTop: '0px', marginLeft: '20px',
+            height: '45px',
+            width: '50px', 
+          }}>
+            
+          </Button>
+          <Button onClick={showDrawer} icon={<MenuOutlined />} style={{
+            fontSize: '18px', fontWeight: 'bold',
+            marginTop: '0px', marginLeft: '5px',
+            height: '45px',
+            width: '110px', 
+          }}>
+            MENU
+          </Button>
+          
+>>>>>>> 9ba296fa5ab0d6b9c7ac2b6157990da247daee3d
 
         </div>
       </Header >

@@ -71,6 +71,7 @@ function ProfileUserUI() {
  
   const noticolumns: ColumnsType<NotiInterface> = [
     {
+<<<<<<< HEAD
       title: "บริษัท",
       dataIndex: "Com_name",
       key: "com_name",
@@ -81,17 +82,30 @@ function ProfileUserUI() {
       dataIndex: "Position",
       key: "position",
       width: '20%',
+=======
+      title: "หัวข้อประกาศงาน",
+      dataIndex: "Topic",
+      key: "Topic",
+>>>>>>> 9ba296fa5ab0d6b9c7ac2b6157990da247daee3d
     },
     {
       title: "สถานะ",
       dataIndex: "StatusNoti",
       key: "StatusNoti",
+<<<<<<< HEAD
       width: '10%',
     },
     {
       title: 'รายละเอียด',
       dataIndex: 'Content',
       key: 'Content',
+=======
+    },
+    {
+      title: 'รายละเอียด',
+      dataIndex: "Content",
+      key: "Content",
+>>>>>>> 9ba296fa5ab0d6b9c7ac2b6157990da247daee3d
       render: (text: string) => (
         <div style={{ textAlign: 'left', whiteSpace: 'pre-line', maxWidth: '50ch', overflow: 'hidden', textOverflow: 'ellipsis' }}>
           {text.split('\n').map((item, key) => {

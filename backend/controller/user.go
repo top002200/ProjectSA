@@ -40,12 +40,17 @@ func GetUser(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": user})
 }
 
+
 // GET /user/noti/:id
 func GetUserNoti(c *gin.Context) {
 	var notifications []entity.Notification
 	id := c.Param("id")
 
+<<<<<<< HEAD
 	if err := entity.DB().Preload("User").Preload("Candidatepost").Preload("Candidatepost.Operator").Where("user_id = ?", id).Find(&notifications).Error; err != nil {
+=======
+	if err := entity.DB().Preload("User").Preload("Candidatepost").Where("user_id = ?", id).Find(&notifications).Error; err != nil {
+>>>>>>> 9ba296fa5ab0d6b9c7ac2b6157990da247daee3d
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -54,12 +59,20 @@ func GetUserNoti(c *gin.Context) {
 	var result []gin.H
 	for _, notification := range notifications {
 		data := gin.H{
+<<<<<<< HEAD
 			"ID":         notification.ID,
 			"Content":    notification.PassOrRejectionDetails,
 			"Read":       notification.Read,
 			"Position":   notification.Candidatepost.Position, // เข้าถึง Topic จาก Candidatepost
 			"StatusNoti": notification.StatusNoti,
 			"Com_name":   notification.Candidatepost.Operator.Com_name,
+=======
+			"ID":          notification.ID,
+			"Content":     notification.PassOrRejectionDetails,
+			"Read":        notification.Read,
+			"Topic":       notification.Candidatepost.Topic, // เข้าถึง Topic จาก Candidatepost
+			"StatusNoti":  notification.StatusNoti,
+>>>>>>> 9ba296fa5ab0d6b9c7ac2b6157990da247daee3d
 		}
 		result = append(result, data)
 	}

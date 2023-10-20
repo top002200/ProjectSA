@@ -142,6 +142,7 @@ function ProfileOperator() {
           Profile
         </Button>
         <Link to="/candidatehome/home">
+<<<<<<< HEAD
           <Button icon={<NotificationOutlined />} style={{
             fontSize: '18px', fontWeight: 'bold', height: '45px',
             marginTop: '5px', width: '100%', textAlign: 'center'
@@ -156,6 +157,22 @@ function ProfileOperator() {
           }}>
             Candidate
           </Button>
+=======
+        <Button icon={<NotificationOutlined />} style={{
+              fontSize: '18px', fontWeight: 'bold', height: '45px',
+              marginTop: '5px', width: '100%',textAlign: 'center'
+            }}> 
+              Job Post
+        </Button>
+        </Link>
+        <Link to="/operator/CandidateSelection">
+        <Button icon={<SolutionOutlined />} style={{
+              fontSize: '18px', fontWeight: 'bold', height: '45px',
+              marginTop: '5px', width: '100%',textAlign: 'center'
+            }}>
+              Candidate
+        </Button>
+>>>>>>> 9ba296fa5ab0d6b9c7ac2b6157990da247daee3d
         </Link>
         <Button onClick={handleSecurity} icon={<SafetyOutlined />} style={{
           fontSize: '18px', fontWeight: 'bold', height: '45px',
@@ -235,12 +252,73 @@ function ProfileOperator() {
 
                 <div style={{ marginBottom: "10px", marginTop: "20px", marginLeft: "10px", marginRight: "10px" }}>
 
+<<<<<<< HEAD
                   <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                     <Form.Item
                       className="form-item-wrapper"
                       name="com_name"
                       label="ชื่อบริษัท"
                       rules={[{ required: true, message: "กรุณากรอกชื่อ!" }]}
+=======
+                <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                  <Form.Item
+                    className="form-item-wrapper"
+                    name="com_name"
+                    label="ชื่อบริษัท"
+                    rules={[{ required: true, message: "กรุณากรอกชื่อ!" }]}
+                  >
+                    <Input placeholder="เช่น โชคชัย" />
+                  </Form.Item>
+                </Col>
+                <Divider />
+                <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                  <Form.Item
+                    className="form-item-wrapper2"
+                    name="address"
+                    label="ที่อยู่"
+                    rules={[{ required: true, message: "กรุณากรอก!" }]}
+                  >
+                    <TextArea
+                      rows={5}
+                      placeholder="เช่น 999 หมู่ 9 ถนนคอนกรีต ตำบลสุรนารี อำเภอเมือง จังหวัดนครราชสีมา 99999"
+                    />
+                  </Form.Item>
+                </Col>
+              </div>
+            </Card>
+            <Card
+              style={{
+                height: "90px",
+                marginTop: "-5px",
+                marginLeft: "50px",
+                marginRight: "50px",
+              }}
+            >
+              <div
+                className="label"
+                style={{ marginLeft: "18px", marginRight: "30px" }}
+              >
+                <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                  <Button
+                    htmlType="submit"
+                    className="custom-button2"
+                    type="primary"
+                    size={size}
+                  >
+                    บันทึก
+                  </Button>
+                  {/* เพิ่มปุ่ม "แก้ไขข้อมูลส่วนตัว" ข้างหลังปุ่ม "บันทึก" */}
+                  <Link to="/privacy/operator">
+                    <Button
+                      style={{
+                        fontSize: "18px",
+                        fontWeight: "bold",
+                        height: "5vh",
+                        marginTop: "0px",
+                        marginLeft: "20px",
+                      }}
+                      onClick={handleSecurity}
+>>>>>>> 9ba296fa5ab0d6b9c7ac2b6157990da247daee3d
                     >
                       <Input placeholder="เช่น โชคชัย" />
                     </Form.Item>

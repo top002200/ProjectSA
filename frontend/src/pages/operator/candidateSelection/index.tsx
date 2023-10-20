@@ -12,8 +12,12 @@ import {
   BellOutlined,
   SafetyOutlined,
   IdcardOutlined,
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9ba296fa5ab0d6b9c7ac2b6157990da247daee3d
 
+  
 } from '@ant-design/icons';
 
 import { Layout, Button, Card, Divider, Drawer, Row } from 'antd';
@@ -27,7 +31,6 @@ import { Link } from 'react-router-dom';
 import { CreateCandidate, GetCandidate } from '../../../services/https/cs';
 
 
-
 type EditableTableProps = Parameters<typeof Table>[0];
 type ColumnTOCF = Exclude<EditableTableProps['columns'], undefined>;
 
@@ -35,6 +38,11 @@ type ColumnTOCF = Exclude<EditableTableProps['columns'], undefined>;
 
 
 const CandidateSelection: React.FC = () => {
+<<<<<<< HEAD
+=======
+
+  const [openNoti, setNotiOpen] = useState(false);
+>>>>>>> 9ba296fa5ab0d6b9c7ac2b6157990da247daee3d
   const [openMenu, setMenuOpen] = useState(false);
   const [open, setOpen] = useState(false);
   const [comname, setComname] = useState();
@@ -43,6 +51,7 @@ const CandidateSelection: React.FC = () => {
   const handleSecurity = () => {
     window.location.href = "/privacy/operator";
   }
+<<<<<<< HEAD
 
 
   const handleProfile = () => {
@@ -57,6 +66,30 @@ const CandidateSelection: React.FC = () => {
     setMenuOpen(false);
   };
 
+=======
+  
+  
+  const handleProfile = () => {
+    window.location.href = "/profile/operator";
+  }
+  
+  const showDrawer = () => {
+    setMenuOpen(true);
+  };
+  
+  const onClose = () => {
+    setMenuOpen(false);
+  };
+  
+  // Noti
+  const showNoti = () => {
+    setNotiOpen(true);
+  };
+  
+  const onCloseNoti = () => {
+    setNotiOpen(false);
+  };
+>>>>>>> 9ba296fa5ab0d6b9c7ac2b6157990da247daee3d
 
   useEffect(() => {
     GetDataCS();
@@ -346,7 +379,11 @@ const CandidateSelection: React.FC = () => {
 
     <Layout>
 
+<<<<<<< HEAD
       <Drawer
+=======
+<Drawer
+>>>>>>> 9ba296fa5ab0d6b9c7ac2b6157990da247daee3d
         title="JOBJOB MENU"
         placement="right"
         closable={false}
@@ -355,7 +392,11 @@ const CandidateSelection: React.FC = () => {
         key="right"
       >
 
+<<<<<<< HEAD
         <Row style={{ marginTop: '10px', marginLeft: '20px' }}>
+=======
+        <Row style={{ marginTop: '10px', marginLeft: '20px'}}>
+>>>>>>> 9ba296fa5ab0d6b9c7ac2b6157990da247daee3d
           <Avatar src="https://xsgames.co/randomoperators/avatar.php?g=pixel" style={{ cursor: 'pointer', transform: 'scale(2)' }}>
 
           </Avatar>
@@ -379,6 +420,7 @@ const CandidateSelection: React.FC = () => {
           Profile
         </Button>
         <Link to="/candidatehome/home">
+<<<<<<< HEAD
           <Button icon={<NotificationOutlined />} style={{
             fontSize: '18px', fontWeight: 'bold', height: '45px',
             marginTop: '5px', width: '100%', textAlign: 'center'
@@ -393,6 +435,22 @@ const CandidateSelection: React.FC = () => {
           }}>
             Candidate
           </Button>
+=======
+        <Button icon={<NotificationOutlined />} style={{
+              fontSize: '18px', fontWeight: 'bold', height: '45px',
+              marginTop: '5px', width: '100%',textAlign: 'center'
+            }}> 
+              Job Post
+        </Button>
+        </Link>
+        <Link to="/operator/CandidateSelection">
+        <Button icon={<SolutionOutlined />} style={{
+              fontSize: '18px', fontWeight: 'bold', height: '45px',
+              marginTop: '5px', width: '100%',textAlign: 'center'
+            }}>
+              Candidate
+        </Button>
+>>>>>>> 9ba296fa5ab0d6b9c7ac2b6157990da247daee3d
         </Link>
         <Button onClick={handleSecurity} icon={<SafetyOutlined />} style={{
           fontSize: '18px', fontWeight: 'bold', height: '45px',
@@ -411,6 +469,22 @@ const CandidateSelection: React.FC = () => {
           <text>Logout</text>
         </Button>
       </Drawer>
+<<<<<<< HEAD
+=======
+      <Drawer
+        title="JOBJOB Notification"
+        placement="right"
+        closable={false}
+        onClose={onCloseNoti}
+        open={openNoti}
+        key="right"
+        width={700}
+      >
+
+        
+        
+      </Drawer>
+>>>>>>> 9ba296fa5ab0d6b9c7ac2b6157990da247daee3d
       <Header style={{ padding: 0, background: '#333333' }}>
         <div style={{
           display: 'flex',
@@ -418,6 +492,7 @@ const CandidateSelection: React.FC = () => {
           justifyContent: 'space-between', // ชิดด้านขวา
           maxWidth: '99%'
         }}>
+<<<<<<< HEAD
           <Link to={'/candidatehome/home'}>
             <text style={{
               fontSize: '50px', marginLeft: '30px',
@@ -436,9 +511,36 @@ const CandidateSelection: React.FC = () => {
             marginTop: '-15px', marginLeft: '5px',
             height: '45px',
             width: '110px',
+=======
+          <text style={{
+            fontSize: '50px', marginLeft: '30px',
+            fontWeight: 'bolder', color: 'white'
+          }}>
+            <span style={{ color: '#ff7518' }}>JO</span>
+            <span>B</span>
+            <span style={{ color: '#ff7518' }}>JO</span>
+            <span>B</span>
+          </text>
+          <div style={{ flex: 1 }}></div>
+          
+          <Button onClick={showNoti} icon={<BellOutlined />} style={{
+            fontSize: '0px', fontWeight: 'bold',
+            marginTop: '0px', marginLeft: '20px',
+            height: '45px',
+            width: '50px', 
+          }}>
+            
+          </Button>
+          <Button onClick={showDrawer} icon={<MenuOutlined />} style={{
+            fontSize: '18px', fontWeight: 'bold',
+            marginTop: '0px', marginLeft: '5px',
+            height: '45px',
+            width: '110px', 
+>>>>>>> 9ba296fa5ab0d6b9c7ac2b6157990da247daee3d
           }}>
             MENU
           </Button>
+          
 
 
         </div>

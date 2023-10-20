@@ -10,13 +10,19 @@
     "@types/node": "^16.18.57",
     "@types/react": "^18.2.24",
     "@types/react-dom": "^18.2.9",
+<<<<<<< HEAD
     "@types/react-helmet": "^6.1.8",
+=======
+>>>>>>> 9ba296fa5ab0d6b9c7ac2b6157990da247daee3d
     "antd": "^5.10.1",
     "axios": "^1.5.1",
     "react": "^18.2.0",
     "react-confirm-alert": "^3.0.6",
     "react-dom": "^18.2.0",
+<<<<<<< HEAD
     "react-helmet": "^6.1.0",
+=======
+>>>>>>> 9ba296fa5ab0d6b9c7ac2b6157990da247daee3d
     "react-router-dom": "^6.17.0",
     "react-scripts": "5.0.1",
     "sweetalert2": "^11.7.32",
