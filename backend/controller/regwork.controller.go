@@ -26,7 +26,7 @@ func RegWork(c *gin.Context) {
 		CandidatepostID: newUserRegWork.CandidatepostID,
 	}
 
-	if err := entity.DB().Create(&newUserRegWork).Error; err != nil {
+	if err := entity.DB().Create(&reg).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
