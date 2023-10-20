@@ -14,6 +14,8 @@ import {
   Checkbox,
 } from "antd";
 import {
+  NotificationOutlined,
+  SolutionOutlined,
   LoginOutlined,
   MenuOutlined,
   IdcardOutlined,
@@ -39,6 +41,8 @@ function PrivacyOperator() {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [componentEnable, setComponentEnable] = useState<boolean>(false);
   const [openNoti, setNotiOpen] = useState(false);
+  const [openMenu, setMenuOpen] = useState(false);
+
 
   const operatorID = localStorage.getItem('id'); // รับค่าจาก localStorage
 
@@ -69,7 +73,7 @@ function PrivacyOperator() {
         console.log(res);
         localStorage.removeItem("accessToken");
         localStorage.removeItem("id");
-        
+
         setTimeout(() => {
           window.location.href = "/";
         }, 2000);
@@ -87,14 +91,16 @@ function PrivacyOperator() {
     localStorage.removeItem("result");
     window.location.href = "/";
   }
+  const handleSecurity = () => {
+    window.location.href = "/privacy/operator";
+  }
+
 
   const handleProfile = () => {
     window.location.href = "/profile/operator";
   }
 
-  const handlePrivacy = () => {
-    window.location.href = "/privacy/operator";
-  }
+
 
 
   const getOperatorById = async () => {
@@ -119,11 +125,11 @@ function PrivacyOperator() {
   }, []);
 
   const showDrawer = () => {
-    setOpen(true);
+    setMenuOpen(true);
   };
 
   const onClose = () => {
-    setOpen(false);
+    setMenuOpen(false);
   };
 
   // ModelDelete
@@ -146,15 +152,7 @@ function PrivacyOperator() {
     setOpenModelSave(false);
   };
 
-  // Noti
-  const showNoti = () => {
-    setNotiOpen(true);
-  };
 
-  const onCloseNoti = () => {
-    setNotiOpen(false);
-  };
-  //--
 
   const [size, setSize] = useState<SizeType>('large'); // default is 'middle'
 
@@ -165,7 +163,7 @@ function PrivacyOperator() {
         placement="right"
         closable={false}
         onClose={onClose}
-        open={open}
+        open={openMenu}
         key="right"
       >
 
@@ -192,7 +190,23 @@ function PrivacyOperator() {
         }}>
           Profile
         </Button>
-        <Button onClick={handlePrivacy} icon={<SafetyOutlined />} style={{
+        <Link to="/candidatehome/home">
+          <Button icon={<NotificationOutlined />} style={{
+            fontSize: '18px', fontWeight: 'bold', height: '45px',
+            marginTop: '5px', width: '100%', textAlign: 'center'
+          }}>
+            Job Post
+          </Button>
+        </Link>
+        <Link to="/operator/CandidateSelection">
+          <Button icon={<SolutionOutlined />} style={{
+            fontSize: '18px', fontWeight: 'bold', height: '45px',
+            marginTop: '5px', width: '100%', textAlign: 'center'
+          }}>
+            Candidate
+          </Button>
+        </Link>
+        <Button onClick={handleSecurity} icon={<SafetyOutlined />} style={{
           fontSize: '18px', fontWeight: 'bold', height: '45px',
           marginTop: '5px',
           width: '100%',
@@ -209,19 +223,6 @@ function PrivacyOperator() {
           <text>Logout</text>
         </Button>
       </Drawer>
-      <Drawer
-        title="JOBJOB Notification"
-        placement="right"
-        closable={false}
-        onClose={onCloseNoti}
-        open={openNoti}
-        key="right"
-        width={700}
-      >
-
-        
-        
-      </Drawer>
       <Header style={{ padding: 0, background: '#333333' }}>
         <div style={{
           display: 'flex',
@@ -229,37 +230,31 @@ function PrivacyOperator() {
           justifyContent: 'space-between', // ชิดด้านขวา
           maxWidth: '99%'
         }}>
-          <text style={{
-            fontSize: '50px', marginLeft: '30px',
-            fontWeight: 'bolder', color: 'white'
-          }}>
-            <span style={{ color: '#ff7518' }}>JO</span>
-            <span>B</span>
-            <span style={{ color: '#ff7518' }}>JO</span>
-            <span>B</span>
-          </text>
+          <Link to={'/candidatehome/home'}>
+            <text style={{
+              fontSize: '50px', marginLeft: '30px',
+              fontWeight: 'bolder', color: 'white'
+            }}>
+              <span style={{ color: '#ff7518' }}>JO</span>
+              <span>B</span>
+              <span style={{ color: '#ff7518' }}>JO</span>
+              <span>B</span>
+            </text>
+          </Link>
           <div style={{ flex: 1 }}></div>
 
-          <Button onClick={showNoti} icon={<BellOutlined />} style={{
-            fontSize: '0px', fontWeight: 'bold',
-            marginTop: '0px', marginLeft: '20px',
-            height: '45px',
-            width: '50px', 
-          }}>
-            
-          </Button>
           <Button onClick={showDrawer} icon={<MenuOutlined />} style={{
             fontSize: '18px', fontWeight: 'bold',
-            marginTop: '0px', marginLeft: '5px',
+            marginTop: '-15px', marginLeft: '5px',
             height: '45px',
             width: '110px',
           }}>
             MENU
           </Button>
 
+
         </div>
       </Header >
-
       {contextHolder}
       < Col xs={24} sm={24} md={24} lg={24} xl={24} >
         <div style={{ padding: 0, background: '#E8E8E8', display: "grid", height: "93.5vh" }}>

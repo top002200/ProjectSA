@@ -18,6 +18,7 @@ import {
   IdcardOutlined,
   SafetyOutlined,
   BellOutlined,
+  RightOutlined,
 } from "@ant-design/icons";
 import "./style.css";
 import { Link } from "react-router-dom";
@@ -67,25 +68,39 @@ function ProfileUserUI() {
       setNoti(resnoti);
     }
   };
-
+ 
   const noticolumns: ColumnsType<NotiInterface> = [
     {
-      title: "หัวข้อประกาศงาน",
-      dataIndex: "Description",
-      key: "description",
+      title: "บริษัท",
+      dataIndex: "Com_name",
+      key: "com_name",
+      width: '25%',
+    },
+    {
+      title: "ตำแหน่ง",
+      dataIndex: "Position",
+      key: "position",
+      width: '20%',
+    },
+    {
+      title: "สถานะ",
+      dataIndex: "StatusNoti",
+      key: "StatusNoti",
+      width: '10%',
     },
     {
       title: 'รายละเอียด',
       dataIndex: 'Content',
-      key: 'content',
+      key: 'Content',
       render: (text: string) => (
-        <div style={{ textAlign: 'left' }}>
+        <div style={{ textAlign: 'left', whiteSpace: 'pre-line', maxWidth: '50ch', overflow: 'hidden', textOverflow: 'ellipsis' }}>
           {text.split('\n').map((item, key) => {
             return <div key={key}>{item}</div>;
           })}
         </div>
       ),
     },
+    
   ];
 
   const handleLogout = () => {
@@ -210,10 +225,18 @@ function ProfileUserUI() {
         onClose={onCloseNoti}
         open={openNoti}
         key="right"
-        width={700}
+        width={1000}
       >
 
         <Table rowKey="ID" columns={noticolumns} dataSource={noti} />
+        <Button onClick={onCloseNoti} icon={<RightOutlined />} style={{
+          fontSize: '18px', fontWeight: 'bold', height: '45px',
+          marginTop: '5px',
+          width: '20%',
+          textAlign: 'center'
+        }}>
+          <text>ปิดหน้าต่าง</text>
+        </Button>
 
       </Drawer>
       <Header style={{ padding: 0, background: '#333333' }}>

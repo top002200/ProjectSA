@@ -13,6 +13,8 @@ import {
   Drawer,
 } from "antd";
 import {
+  SolutionOutlined,
+  NotificationOutlined,
   LoginOutlined,
   MenuOutlined,
   IdcardOutlined,
@@ -103,16 +105,6 @@ function ProfileOperator() {
     setMenuOpen(false);
   };
 
-  // Noti
-  const showNoti = () => {
-    setNotiOpen(true);
-  };
-
-  const onCloseNoti = () => {
-    setNotiOpen(false);
-  };
-  //--
-
   const [size, setSize] = useState<SizeType>('large'); // default is 'middle'
 
   return (
@@ -126,7 +118,7 @@ function ProfileOperator() {
         key="right"
       >
 
-        <Row style={{ marginTop: '10px', marginLeft: '20px'}}>
+        <Row style={{ marginTop: '10px', marginLeft: '20px' }}>
           <Avatar src="https://xsgames.co/randomoperators/avatar.php?g=pixel" style={{ cursor: 'pointer', transform: 'scale(2)' }}>
 
           </Avatar>
@@ -149,6 +141,22 @@ function ProfileOperator() {
         }}>
           Profile
         </Button>
+        <Link to="/candidatehome/home">
+          <Button icon={<NotificationOutlined />} style={{
+            fontSize: '18px', fontWeight: 'bold', height: '45px',
+            marginTop: '5px', width: '100%', textAlign: 'center'
+          }}>
+            Job Post
+          </Button>
+        </Link>
+        <Link to="/operator/CandidateSelection">
+          <Button icon={<SolutionOutlined />} style={{
+            fontSize: '18px', fontWeight: 'bold', height: '45px',
+            marginTop: '5px', width: '100%', textAlign: 'center'
+          }}>
+            Candidate
+          </Button>
+        </Link>
         <Button onClick={handleSecurity} icon={<SafetyOutlined />} style={{
           fontSize: '18px', fontWeight: 'bold', height: '45px',
           marginTop: '5px',
@@ -166,56 +174,39 @@ function ProfileOperator() {
           <text>Logout</text>
         </Button>
       </Drawer>
-      <Drawer
-        title="JOBJOB Notification"
-        placement="right"
-        closable={false}
-        onClose={onCloseNoti}
-        open={openNoti}
-        key="right"
-        width={700}
-      >
-
-        
-        
-      </Drawer>
       <Header style={{ padding: 0, background: '#333333' }}>
+
         <div style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between', // ชิดด้านขวา
           maxWidth: '99%'
         }}>
-          <text style={{
-            fontSize: '50px', marginLeft: '30px',
-            fontWeight: 'bolder', color: 'white'
-          }}>
-            <span style={{ color: '#ff7518' }}>JO</span>
-            <span>B</span>
-            <span style={{ color: '#ff7518' }}>JO</span>
-            <span>B</span>
-          </text>
+          <Link to={'/candidatehome/home'}>
+            <text style={{
+              fontSize: '50px', marginLeft: '30px',
+              fontWeight: 'bolder', color: 'white'
+            }}>
+              <span style={{ color: '#ff7518' }}>JO</span>
+              <span>B</span>
+              <span style={{ color: '#ff7518' }}>JO</span>
+              <span>B</span>
+            </text>
+          </Link>
           <div style={{ flex: 1 }}></div>
-          
-          <Button onClick={showNoti} icon={<BellOutlined />} style={{
-            fontSize: '0px', fontWeight: 'bold',
-            marginTop: '0px', marginLeft: '20px',
-            height: '45px',
-            width: '50px', 
-          }}>
-            
-          </Button>
+
           <Button onClick={showDrawer} icon={<MenuOutlined />} style={{
             fontSize: '18px', fontWeight: 'bold',
-            marginTop: '0px', marginLeft: '5px',
+            marginTop: '-15px', marginLeft: '5px',
             height: '45px',
-            width: '110px', 
+            width: '110px',
           }}>
             MENU
           </Button>
-          
+
 
         </div>
+
       </Header >
 
       {contextHolder}
@@ -244,69 +235,69 @@ function ProfileOperator() {
 
                 <div style={{ marginBottom: "10px", marginTop: "20px", marginLeft: "10px", marginRight: "10px" }}>
 
-                <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                  <Form.Item
-                    className="form-item-wrapper"
-                    name="com_name"
-                    label="ชื่อบริษัท"
-                    rules={[{ required: true, message: "กรุณากรอกชื่อ!" }]}
-                  >
-                    <Input placeholder="เช่น โชคชัย" />
-                  </Form.Item>
-                </Col>
-                <Divider />
-                <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                  <Form.Item
-                    className="form-item-wrapper2"
-                    name="address"
-                    label="ที่อยู่"
-                    rules={[{ required: true, message: "กรุณากรอก!" }]}
-                  >
-                    <TextArea
-                      rows={5}
-                      placeholder="เช่น 999 หมู่ 9 ถนนคอนกรีต ตำบลสุรนารี อำเภอเมือง จังหวัดนครราชสีมา 99999"
-                    />
-                  </Form.Item>
-                </Col>
-              </div>
-            </Card>
-            <Card
-              style={{
-                height: "90px",
-                marginTop: "-5px",
-                marginLeft: "50px",
-                marginRight: "50px",
-              }}
-            >
-              <div
-                className="label"
-                style={{ marginLeft: "18px", marginRight: "30px" }}
-              >
-                <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                  <Button
-                    htmlType="submit"
-                    className="custom-button2"
-                    type="primary"
-                    size={size}
-                  >
-                    บันทึก
-                  </Button>
-                  {/* เพิ่มปุ่ม "แก้ไขข้อมูลส่วนตัว" ข้างหลังปุ่ม "บันทึก" */}
-                  <Link to="/privacy/operator">
-                    <Button
-                      style={{
-                        fontSize: "18px",
-                        fontWeight: "bold",
-                        height: "5vh",
-                        marginTop: "0px",
-                        marginLeft: "20px",
-                      }}
-                      onClick={handleProfile}
+                  <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                    <Form.Item
+                      className="form-item-wrapper"
+                      name="com_name"
+                      label="ชื่อบริษัท"
+                      rules={[{ required: true, message: "กรุณากรอกชื่อ!" }]}
                     >
-                      แก้ไขข้อมูลส่วนตัว
+                      <Input placeholder="เช่น โชคชัย" />
+                    </Form.Item>
+                  </Col>
+                  <Divider />
+                  <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                    <Form.Item
+                      className="form-item-wrapper2"
+                      name="address"
+                      label="ที่อยู่"
+                      rules={[{ required: true, message: "กรุณากรอก!" }]}
+                    >
+                      <TextArea
+                        rows={5}
+                        placeholder="เช่น 999 หมู่ 9 ถนนคอนกรีต ตำบลสุรนารี อำเภอเมือง จังหวัดนครราชสีมา 99999"
+                      />
+                    </Form.Item>
+                  </Col>
+                </div>
+              </Card>
+              <Card
+                style={{
+                  height: "90px",
+                  marginTop: "-5px",
+                  marginLeft: "50px",
+                  marginRight: "50px",
+                }}
+              >
+                <div
+                  className="label"
+                  style={{ marginLeft: "18px", marginRight: "30px" }}
+                >
+                  <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                    <Button
+                      htmlType="submit"
+                      className="custom-button2"
+                      type="primary"
+                      size={size}
+                    >
+                      บันทึก
                     </Button>
-                  </Link>
-                </Col>
+                    {/* เพิ่มปุ่ม "แก้ไขข้อมูลส่วนตัว" ข้างหลังปุ่ม "บันทึก" */}
+                    <Link to="/privacy/operator">
+                      <Button
+                        style={{
+                          fontSize: "18px",
+                          fontWeight: "bold",
+                          height: "5vh",
+                          marginTop: "0px",
+                          marginLeft: "20px",
+                        }}
+                        onClick={handleSecurity}
+                      >
+                        แก้ไขข้อมูลส่วนตัว
+                      </Button>
+                    </Link>
+                  </Col>
                 </div>
 
               </Card>

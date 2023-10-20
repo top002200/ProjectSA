@@ -102,11 +102,15 @@ function RegisterOperator() {
                   style={{ marginLeft: "30px", marginRight: "30px" }}
                 >
                   <p className="div">
-                    <span className="text-wrapper">ลงทะเบียน</span>
+                    <span className="text-wrapper"
+                    style={{ color: '#3b50ce', borderColor: '#3b50ce' }}
+                    >ลงทะเบียน</span>
                     <span className="span">&nbsp;</span>
                     <span className="text-wrapper-2">สำหรับผู้ประกอบการ</span>
                     <span className="space1"></span>
-                    <Button onClick={handleClick} className="custom-button" danger>
+                    <Button onClick={handleClick} className="custom-button" danger
+                    style={{ backgroundColor: '#d0d9ff', color: '#3b50ce', borderColor: '#3b50ce' }}
+                    >
                       ลงทะเบียน สำหรับผู้หางาน
                     </Button>
                   </p>
@@ -169,7 +173,15 @@ function RegisterOperator() {
                       rules={[
                         {
                           required: true,
-                          message: "กรุณากรอกรหัสผ่าน!",
+                            validator: (rule, value) => {
+                              if (!value) {
+                                return Promise.reject("กรุณากรอกรหัสผ่าน!");
+                              } else if (value.length < 8) {
+                                return Promise.reject("รหัสผ่านต้องมีอย่างน้อย 8 ตัว!");
+                              } else {
+                                return Promise.resolve();
+                              }
+                            },
                         },
                       ]}
                     >
@@ -231,6 +243,7 @@ function RegisterOperator() {
                         className="custom-button2"
                         type="primary"
                         size={size}
+                        style={{ backgroundColor: '#3b50ce', color: 'white', borderColor: '#3b50ce' }}
                       >
                         ลงทะเบียน
                       </Button>

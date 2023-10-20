@@ -19,13 +19,15 @@ import {
   IdcardOutlined,
   SafetyOutlined,
   BellOutlined,
+  RightOutlined,
 } from "@ant-design/icons";
 import "./style.css";
 import { Link } from "react-router-dom";
-import { UsersInterface } from "../../../interfaces/IUser";
-import { GetUsers, UpdateSecurityUser, DeleteUser } from "../../../services/https/user";
+import { NotiInterface, UsersInterface } from "../../../interfaces/IUser";
+import { GetUsers, UpdateSecurityUser, DeleteUser, GetUsersNoti } from "../../../services/https/user";
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import { Header } from 'antd/es/layout/layout';
+import Table, { ColumnsType } from 'antd/es/table';
 
 function PrivacyUserUI() {
   const [messageApi, contextHolder] = message.useMessage();
@@ -40,6 +42,7 @@ function PrivacyUserUI() {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [componentEnable, setComponentEnable] = useState<boolean>(false);
   const [openNoti, setNotiOpen] = useState(false);
+  const [noti, setNoti] = useState<NotiInterface[]>([]);
 
   const userID = localStorage.getItem('id'); // รับค่าจาก localStorage
 
@@ -70,7 +73,7 @@ function PrivacyUserUI() {
         console.log(res);
         localStorage.removeItem("accessToken");
         localStorage.removeItem("id");
-        
+
         setTimeout(() => {
           window.location.href = "/";
         }, 2000);
@@ -112,11 +115,52 @@ function PrivacyUserUI() {
     }
   };
 
+  const getNoti = async () => {
+    let resnoti = await GetUsersNoti(Number(userID));
+    if (resnoti) {
+      setNoti(resnoti);
+    }
+  };
+
+  const noticolumns: ColumnsType<NotiInterface> = [
+    {
+      title: "บริษัท",
+      dataIndex: "Com_name",
+      key: "com_name",
+      width: '25%',
+    },
+    {
+      title: "ตำแหน่ง",
+      dataIndex: "Position",
+      key: "position",
+      width: '20%',
+    },
+    {
+      title: "สถานะ",
+      dataIndex: "StatusNoti",
+      key: "StatusNoti",
+      width: '10%',
+    },
+    {
+      title: 'รายละเอียด',
+      dataIndex: 'Content',
+      key: 'Content',
+      render: (text: string) => (
+        <div style={{ textAlign: 'left', whiteSpace: 'pre-line', maxWidth: '50ch', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+          {text.split('\n').map((item, key) => {
+            return <div key={key}>{item}</div>;
+          })}
+        </div>
+      ),
+    },
+
+  ];
+
 
 
   useEffect(() => {
     getUserById();
-
+    getNoti();
 
   }, []);
 
@@ -220,11 +264,19 @@ function PrivacyUserUI() {
         onClose={onCloseNoti}
         open={openNoti}
         key="right"
-        width={700}
+        width={1000}
       >
 
-        
-        
+        <Table rowKey="ID" columns={noticolumns} dataSource={noti} />
+        <Button onClick={onCloseNoti} icon={<RightOutlined />} style={{
+          fontSize: '18px', fontWeight: 'bold', height: '45px',
+          marginTop: '5px',
+          width: '20%',
+          textAlign: 'center'
+        }}>
+          <text>ปิดหน้าต่าง</text>
+        </Button>
+
       </Drawer>
       <Header style={{ padding: 0, background: '#333333' }}>
         <div style={{
@@ -248,9 +300,9 @@ function PrivacyUserUI() {
             fontSize: '0px', fontWeight: 'bold',
             marginTop: '0px', marginLeft: '20px',
             height: '45px',
-            width: '50px', 
+            width: '50px',
           }}>
-            
+
           </Button>
           <Button onClick={showDrawer} icon={<MenuOutlined />} style={{
             fontSize: '18px', fontWeight: 'bold',

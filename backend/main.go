@@ -36,6 +36,14 @@ func main() {
 	//CS
 	r.GET("/candidate", controller.ListCandidate)
 	r.POST("/createcandidates", controller.CreateCandidate)
+	//WHU
+	r.POST("/regwork", controller.RegWork)
+	r.GET("/post", controller.ListPost)
+	r.GET("/whul", controller.GetLatestWHU)
+	r.GET("/searchwork/:key", controller.SearchWork)
+	r.POST("/upload", controller.UploadHandler)
+	r.GET("/searchuser/:key", controller.SearchUser)
+	// r.GET("/getuser", controller.GetUser)
 	// Run the server
 	r.Run()
 }

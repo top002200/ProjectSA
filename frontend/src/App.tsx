@@ -21,6 +21,9 @@ import Candidatepost from "./pages/candidate/post";
 import Candidatehome from "./pages/candidatehome/home";
 //cs
 import CandidateSelection from "./pages/operator/candidateSelection";
+//HWU
+import Feed from "./pages/feed/feed";
+import Opsearch from './pages/opsearch/opsearch';
 
 
 const App: React.FC = () => {
@@ -37,6 +40,8 @@ const App: React.FC = () => {
             <Route path="/login/user" element={<Navigate to="/profile/user" />} />
             <Route path="/profile/user" element={<ProfileUserUI />} />
             <Route path="/privacy/user" element={<PrivacyUserUI />} />
+            <Route path="/" element={<Feed />} />
+            <Route path="/opsearch" element={<Opsearch />} />
           </Routes>
         </Router>
       );
@@ -50,6 +55,7 @@ const App: React.FC = () => {
             <Route path="/privacy/operator" element={<PrivacyOperator />} />
             <Route path="/candidate/post" element={<Candidatepost />} />
             <Route path="/candidatehome/home" element={<Candidatehome />} />
+            <Route path="/" element={<Candidatehome />} />
             <Route path="/operator/CandidateSelection" element={<CandidateSelection />} />
           </Routes>
         </Router>

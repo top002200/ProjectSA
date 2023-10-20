@@ -9,6 +9,10 @@ import {
   UserAddOutlined,
   UserDeleteOutlined,
   MenuOutlined,
+  BellOutlined,
+  SafetyOutlined,
+  IdcardOutlined,
+
 
 } from '@ant-design/icons';
 
@@ -20,8 +24,7 @@ import { DataWHU } from "../../../interfaces/index";
 import TextArea from 'antd/es/input/TextArea';
 import Avatar from 'antd/es/avatar/avatar';
 import { Link } from 'react-router-dom';
-import { CreateCandidate, GetCandidate} from '../../../services/https/cs';
-
+import { CreateCandidate, GetCandidate } from '../../../services/https/cs';
 
 
 
@@ -30,15 +33,35 @@ type ColumnTOCF = Exclude<EditableTableProps['columns'], undefined>;
 
 
 
+
 const CandidateSelection: React.FC = () => {
-
-
+  const [openMenu, setMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [comname, setComname] = useState();
   let [dataCS, setDataCS] = useState<DataWHU[]>([]);
+
+  const handleSecurity = () => {
+    window.location.href = "/privacy/operator";
+  }
+
+
+  const handleProfile = () => {
+    window.location.href = "/profile/operator";
+  }
+
+  const showDrawer = () => {
+    setMenuOpen(true);
+  };
+
+  const onClose = () => {
+    setMenuOpen(false);
+  };
+
 
   useEffect(() => {
     GetDataCS();
   }, []);
-  
+
   const GetDataCS = async () => {
     let res = await GetCandidate();
     if (res) {
@@ -46,9 +69,9 @@ const CandidateSelection: React.FC = () => {
       setDataCS(res);
     }
   };
-  
 
-  
+
+
   const { Header, Content } = Layout;
 
 
@@ -63,7 +86,7 @@ const CandidateSelection: React.FC = () => {
     },
     {
       title: 'Job Post',
-      dataIndex: 'Position', 
+      dataIndex: 'Position',
       align: 'center',
       width: '20%',
     },
@@ -80,19 +103,19 @@ const CandidateSelection: React.FC = () => {
       width: '15%',
       key: 'key',
       render: (record) => (
-        
-          <Space >
 
-            <Button onClick={() => AddDataToTableCF(record.UserID)}>
-              <Space>
+        <Space >
 
-                เพิ่มรายชื่อ
-                <UserAddOutlined />
+          <Button onClick={() => AddDataToTableCF(record.UserID)}>
+            <Space>
 
-              </Space>
-            </Button>
-          </Space>
-        
+              เพิ่มรายชื่อ
+              <UserAddOutlined />
+
+            </Space>
+          </Button>
+        </Space>
+
       ),
     },
   ];
@@ -113,14 +136,14 @@ const CandidateSelection: React.FC = () => {
       handleAddToConfirm(itemToCF);
     }
   };
-  
-  
+
+
   const handleAddToConfirm = (record: DataWHU) => {
     const newData: DataWHU = {
       ID: count,
       UserName: record.UserName,
       Position: record.Position,
-      Detail: record.Detail ,
+      Detail: record.Detail,
       CandidatepostID: record.CandidatepostID,
       Status_cs: '',
       Read: false,
@@ -170,7 +193,7 @@ const CandidateSelection: React.FC = () => {
   const defaultColumns: (ColumnTOCF[number] & { editable?: boolean; dataIndex: string })[] = [
     {
       title: 'NO',
-      dataIndex: 'id',
+      dataIndex: 'ID',
       align: 'center',
       width: '10%',
     },
@@ -182,7 +205,7 @@ const CandidateSelection: React.FC = () => {
     },
     {
       title: 'Job Post',
-      dataIndex: 'Position', 
+      dataIndex: 'Position',
       align: 'center',
       width: '20%',
     },
@@ -233,28 +256,28 @@ const CandidateSelection: React.FC = () => {
   const [jobInterviewDetail, setJobInterviewDetail] = useState("");
   const [isPass, setIsPass] = useState(false);
   const [isReject, setIsReject] = useState(false);
-  
-  
+
+
 
   async function handleConfirmClick() {
     if (jobInterviewDetail && (isPass || isReject)) {
       if (dataSource.length >= 1) {
         const confirmedDataArray = dataSource.map((record) => ({
-          ID: record.ID, 
+          ID: record.ID,
           Pass_or_rejection_details: jobInterviewDetail,
           Status_cs: isPass ? "Pass" : "Reject",
           CandidatepostID: record.CandidatepostID,
           Candidate: record.UserName,
           Read: record.Read,
           User_id: record.ID,
-          
+
         }));
-  
+
         try {
           // สร้าง CandidateSelection โดยเรียก API ที่เหมาะสม
           console.log(confirmedDataArray);
           await CreateCandidate(confirmedDataArray);
-  
+
           // รีเซ็ตสถานะ Confirm
           setIsConfirmed(true);
           showModal();
@@ -271,11 +294,11 @@ const CandidateSelection: React.FC = () => {
       console.error("Please fill in all required information");
     }
   }
-  
-  
-  
-  
-  
+
+
+
+
+
 
 
 
@@ -305,15 +328,8 @@ const CandidateSelection: React.FC = () => {
 
 
 
-  // ส่วนของ Header and sider
-  const [open, setOpen] = useState(false);
-  const showDrawer = () => {
-    setOpen(true);
-  };
 
-  const onClose = () => {
-    setOpen(false);
-  };
+
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
@@ -326,98 +342,75 @@ const CandidateSelection: React.FC = () => {
 
 
   return (
-    
+
 
     <Layout>
-
-{/* <button onClick={Get}>
-  fetchData
-</button> */}
 
       <Drawer
         title="JOBJOB MENU"
         placement="right"
         closable={false}
         onClose={onClose}
-        open={open}
+        open={openMenu}
         key="right"
       >
-        <div >
 
-          <Row>
-            <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" style={{ cursor: 'pointer', transform: 'scale(1.5)' }}>
+        <Row style={{ marginTop: '10px', marginLeft: '20px' }}>
+          <Avatar src="https://xsgames.co/randomoperators/avatar.php?g=pixel" style={{ cursor: 'pointer', transform: 'scale(2)' }}>
 
-            </Avatar>
+          </Avatar>
+          <Link to="/login/operator">
+            <text style={{
+              fontSize: '20px', marginLeft: '25px',
+              fontWeight: 'bolder', color: 'white'
+            }}>
+              <span style={{ color: '#000000' }}>{comname}</span>
+            </text>
+          </Link>
 
-            <Link to={'/customer/Receiver'}>
-              <text style={{
-                fontSize: '20px', marginLeft: '25px',
-                fontWeight: 'bolder', color: 'white'
-              }}>
-                <span style={{ color: '#ff7518' }}>Naruebeth</span>
-                <span>B</span>
-                <span style={{ color: '#ff7518' }}>Chitchuai</span>
-              </text>
-
-            </Link>
-
-          </Row>
-
-        </div>
-
-        <p>
-          <Button icon={<HomeOutlined style={{ marginLeft: '-35px' }} />} style={{
-            fontSize: '18px', fontWeight: 'bold', height: '5vh',
-            marginTop: '5px', width: '100%'
-          }}>
-            Home
-          </Button>
-        </p>
-
-        <p>
-          <Button icon={<UserOutlined style={{ marginLeft: '-0px' }} />} style={{
-            fontSize: '18px', fontWeight: 'bold', height: '5vh',
-            marginTop: '5px', width: '100%'
-          }}>
-            My Profile
-          </Button>
-        </p>
-
-        <p>
-          <Button icon={<NotificationOutlined style={{ marginLeft: '-15px' }} />} style={{
-            fontSize: '18px', fontWeight: 'bold', height: '5vh',
-            marginTop: '5px', width: '100%', justifySelf: 'auto'
+        </Row>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}></div>
+        <Button onClick={handleProfile} icon={<IdcardOutlined />} style={{
+          fontSize: '18px', fontWeight: 'bold', height: '45px',
+          marginTop: '30px',
+          width: '100%',
+          textAlign: 'center'
+        }}>
+          Profile
+        </Button>
+        <Link to="/candidatehome/home">
+          <Button icon={<NotificationOutlined />} style={{
+            fontSize: '18px', fontWeight: 'bold', height: '45px',
+            marginTop: '5px', width: '100%', textAlign: 'center'
           }}>
             Job Post
           </Button>
-        </p>
-
-        <p>
+        </Link>
+        <Link to="/operator/CandidateSelection">
           <Button icon={<SolutionOutlined />} style={{
-            fontSize: '18px', fontWeight: 'bold', height: '5vh',
-            marginTop: '5px', width: '100%'
+            fontSize: '18px', fontWeight: 'bold', height: '45px',
+            marginTop: '5px', width: '100%', textAlign: 'center'
           }}>
             Candidate
           </Button>
-        </p>
-
-        <p>
-          <Button onClick={handleLogout} icon={<LoginOutlined style={{ marginLeft: '-25px' }} />}
-            style={{
-              fontSize: '18px', fontWeight: 'bold', height: '5vh',
-              marginTop: '5px', width: '100%'
-            }}>
-
-            Logout
-          </Button>
-        </p>
-
-
-    
-
-
+        </Link>
+        <Button onClick={handleSecurity} icon={<SafetyOutlined />} style={{
+          fontSize: '18px', fontWeight: 'bold', height: '45px',
+          marginTop: '5px',
+          width: '100%',
+          textAlign: 'center'
+        }}>
+          Privacy
+        </Button>
+        <Button onClick={handleLogout} icon={<LoginOutlined />} style={{
+          fontSize: '18px', fontWeight: 'bold', height: '45px',
+          marginTop: '5px',
+          width: '100%',
+          textAlign: 'center'
+        }}>
+          <text>Logout</text>
+        </Button>
       </Drawer>
-
       <Header style={{ padding: 0, background: '#333333' }}>
         <div style={{
           display: 'flex',
@@ -425,34 +418,31 @@ const CandidateSelection: React.FC = () => {
           justifyContent: 'space-between', // ชิดด้านขวา
           maxWidth: '99%'
         }}>
-          <text style={{
-            fontSize: '50px', marginLeft: '30px',
-            fontWeight: 'bolder', color: 'white'
-          }}>
-            <span style={{ color: '#ff7518' }}>JO</span>
-            <span>B</span>
-            <span style={{ color: '#ff7518' }}>JO</span>
-            <span>B</span>
-          </text>
-
-
-          <div style={{ flex: 1 }}></div> {/* เพิ่มพื้นที่ที่ว่างเพื่อทำให้ปุ่ม Logout ชิดขวา */}
+          <Link to={'/candidatehome/home'}>
+            <text style={{
+              fontSize: '50px', marginLeft: '30px',
+              fontWeight: 'bolder', color: 'white'
+            }}>
+              <span style={{ color: '#ff7518' }}>JO</span>
+              <span>B</span>
+              <span style={{ color: '#ff7518' }}>JO</span>
+              <span>B</span>
+            </text>
+          </Link>
+          <div style={{ flex: 1 }}></div>
 
           <Button onClick={showDrawer} icon={<MenuOutlined />} style={{
-            fontSize: '18px', fontWeight: 'bold', height: '5vh',
-            marginTop: '0px', marginLeft: '20px'
+            fontSize: '18px', fontWeight: 'bold',
+            marginTop: '-15px', marginLeft: '5px',
+            height: '45px',
+            width: '110px',
           }}>
             MENU
           </Button>
 
+
         </div>
       </Header >
-
-
-
-
-
-
       <Layout>
 
         <Content>
@@ -471,7 +461,7 @@ const CandidateSelection: React.FC = () => {
               </Form>
 
               <Table
-                
+
 
                 bordered
                 scroll={{ x: '100%', y: 240 }}
@@ -489,9 +479,9 @@ const CandidateSelection: React.FC = () => {
                 footer={() => (
                   <div style={{ textAlign: 'center' }}>Suranaree University of Technology</div>
                 )}
-              /> 
+              />
 
-                
+
 
             </>
           </Card>
