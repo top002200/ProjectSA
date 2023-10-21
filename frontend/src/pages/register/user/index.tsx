@@ -25,6 +25,7 @@ import { Link, useNavigate, } from "react-router-dom";
 import { UsersInterface } from "../../../interfaces/IUser";
 import { CreateUser } from "../../../services/https/user";
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
+import { Helmet } from 'react-helmet';
 const { TextArea } = Input;
 
 function RegisterUserUI() {
@@ -71,9 +72,9 @@ function RegisterUserUI() {
 
   return (
     <>
-      {/* <Header style={{ display: 'flex', alignItems: 'center' }}>
-      <div className="demo-logo" />
-    </Header> */}
+      <Helmet>
+        <title>JOBJOB : Register</title>
+      </Helmet>
       {contextHolder}
       <Col xs={24} sm={24} md={24} lg={24} xl={24}>
         <div className='img-back' style={{ display: "grid", placeItems: "center", height: "100vh" }}>

@@ -1,5 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
+import op from "../../../public/op.png";
 import {
   Col,
   Card,
@@ -45,6 +46,7 @@ import { ColumnsType, ExpandableConfig } from 'antd/es/table/interface';
 import { DeletePost } from '../../../services/https/candidate';
 import { GetOperators } from '../../../services/https/operator';
 import { OperatorsInterface } from '../../../interfaces/IOperator';
+import { Helmet } from 'react-helmet';
 const { TextArea } = Input;
 
 
@@ -62,8 +64,8 @@ function Candidatehome() {
   const [openMenu, setMenuOpen] = useState(false);
   const [comname, setComname] = useState();
   const [operator, setOperators] = useState<OperatorsInterface>();
-  
-  
+
+
 
 
   const operatorID = localStorage.getItem('id');
@@ -253,6 +255,9 @@ function Candidatehome() {
 
   return (
     <>
+      <Helmet>
+        <title>JOBJOB : Home</title>
+      </Helmet>
       <Drawer
         title="JOBJOB MENU"
         placement="right"
@@ -263,7 +268,7 @@ function Candidatehome() {
       >
 
         <Row style={{ marginTop: '10px', marginLeft: '20px' }}>
-          <Avatar src="https://xsgames.co/randomoperators/avatar.php?g=pixel" style={{ cursor: 'pointer', transform: 'scale(2)' }}>
+          <Avatar src={op} style={{ cursor: 'pointer', transform: 'scale(2)' }}>
 
           </Avatar>
           <Link to="/login/operator" style={{ textDecoration: "none" }}>

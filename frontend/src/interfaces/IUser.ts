@@ -1,5 +1,6 @@
 export interface UsersInterface {
     ID?: number;
+    Avatar?: string
     Title_name?: string;
     First_name?: string;
     Last_name?: string;

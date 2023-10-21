@@ -62,6 +62,8 @@ func DeleteOperator(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": id})
 }
 
+
+
 // PATCH /oparators
 func UpdateOperator(c *gin.Context) {
 	var operator entity.Operator_account

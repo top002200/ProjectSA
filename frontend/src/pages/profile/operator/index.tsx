@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import op from "../../../public/op.png";
 import {
   Col,
   Card,
@@ -27,6 +28,7 @@ import { OperatorsInterface } from "../../../interfaces/IOperator";
 import { GetOperators, UpdateOperator } from "../../../services/https/operator";
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import { Header } from 'antd/es/layout/layout';
+import { Helmet } from 'react-helmet';
 const { TextArea } = Input;
 
 function ProfileOperator() {
@@ -108,6 +110,9 @@ function ProfileOperator() {
 
   return (
     <>
+      <Helmet>
+        <title>JOBJOB : Profile</title>
+      </Helmet>
       <Drawer
         title="JOBJOB MENU"
         placement="right"
@@ -118,7 +123,7 @@ function ProfileOperator() {
       >
 
         <Row style={{ marginTop: '10px', marginLeft: '20px' }}>
-          <Avatar src="https://xsgames.co/randomoperators/avatar.php?g=pixel" style={{ cursor: 'pointer', transform: 'scale(2)' }}>
+          <Avatar src={op} style={{ cursor: 'pointer', transform: 'scale(2)' }}>
 
           </Avatar>
           <Link to="/login/operator" style={{ textDecoration: "none" }}>
@@ -181,7 +186,7 @@ function ProfileOperator() {
           justifyContent: 'space-between', // ชิดด้านขวา
           maxWidth: '99%'
         }}>
-           <a href="/" style={{ textDecoration: "none" }}>
+          <a href="/" style={{ textDecoration: "none" }}>
             <text style={{
               fontSize: '50px', marginLeft: '30px',
               fontWeight: 'bolder', color: 'white'

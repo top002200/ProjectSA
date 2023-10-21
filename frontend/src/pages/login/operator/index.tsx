@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import { OperatorsInterface } from "../../../interfaces/IOperator";
 import { OperatorLogin } from "../../../services/https/operator";
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
+import { Helmet } from 'react-helmet';
 const { TextArea } = Input;
 
 
@@ -51,6 +52,9 @@ function LoginOperator() {
 
   return (
     <>
+      <Helmet>
+        <title>JOBJOB : Login</title>
+      </Helmet>
       {contextHolder}
       <Col xs={24} sm={24} md={24} lg={24} xl={24}>
         <div className='img-back' style={{ display: "grid", placeItems: "center", height: "100vh" }}>
@@ -66,91 +70,91 @@ function LoginOperator() {
           </text>
           <Space direction="vertical" size="middle">
 
-            <div style={{ marginTop: '-400px'}}>
-            <Card style={{ height: "130px",marginTop: '0px', marginBottom: "-30px", }}>
-              <div className="label" style={{ marginLeft: "30px", marginRight: "30px" }}>
-                <p className="div">
-                  <span className="text-wrapper"
-                  style={{ color: '#3b50ce', borderColor: '#3b50ce' }}
-                  >เข้าสู่ระบบ</span>
-                  <span className="span">&nbsp;</span>
-                  <span className="text-wrapper-2">สำหรับผู้ประกอบการ</span>
-                  <span className="space1"></span>
-                  <Button onClick={handleClick} className="custom-button" danger
-                  style={{ backgroundColor: '#d0d9ff', color: '#3b50ce', borderColor: '#3b50ce' }}
-                  >เข้าสู่ระบบ สำหรับผู้หางาน</Button>
-                </p>
-              </div>
-            </Card>
-            <Form
-              name="basic"
-              layout="vertical"
-              onFinish={onFinish}
-              autoComplete="off"
-            >
-              <Card size="small" style={{ height: "220px" }}>
-                <div style={{ marginBottom: "10px", marginTop: "20px", marginLeft: "30px", marginRight: "30px" }}>
-                  <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                    <Form.Item
-                      className="form-item-wrapper"
-                      label="อีเมล"
-                      name="operator_email"
-                      rules={[
-                        {
-                          type: "email",
-                          message: "รูปแบบอีเมลไม่ถูกต้อง !",
-                        },
-                        {
-                          required: true,
-                          message: "กรุณากรอก !",
-                        },
-                      ]}
-                    >
-                      <Input
-                      />
-                    </Form.Item>
-                  </Col>
-                  <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                    <Form.Item
-                      className="form-item-wrapper"
-                      label="รหัสผ่าน"
-                      name="operator_pass"
-                      rules={[
-                        {
-                          required: true,
-                          message: "กรุณากรอก !",
-                        },
-                      ]}
-                    >
-                      <Input.Password />
-                    </Form.Item>
-                  </Col>
-                  <Divider />
+            <div style={{ marginTop: '-400px' }}>
+              <Card style={{ height: "130px", marginTop: '0px', marginBottom: "-30px", }}>
+                <div className="label" style={{ marginLeft: "30px", marginRight: "30px" }}>
+                  <p className="div">
+                    <span className="text-wrapper"
+                      style={{ color: '#3b50ce', borderColor: '#3b50ce' }}
+                    >เข้าสู่ระบบ</span>
+                    <span className="span">&nbsp;</span>
+                    <span className="text-wrapper-2">สำหรับผู้ประกอบการ</span>
+                    <span className="space1"></span>
+                    <Button onClick={handleClick} className="custom-button" danger
+                      style={{ backgroundColor: '#d0d9ff', color: '#3b50ce', borderColor: '#3b50ce' }}
+                    >เข้าสู่ระบบ สำหรับผู้หางาน</Button>
+                  </p>
                 </div>
               </Card>
-              <Card style={{ height: "85px", marginTop: "-15px", }}>
-                <div className="label" style={{ marginLeft: "18px", marginRight: "30px" }}>
-                  <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                    <Button htmlType="submit" className='custom-button2' type="primary" size={size}
-                    style={{ backgroundColor: '#3b50ce', color: 'white', borderColor: '#3b50ce' }}
-                    >
-                      เข้าสู่ระบบ
-                    </Button>
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    <span className="text-wrapper-2">หรือ</span>
-                    <span>&nbsp;&nbsp;</span>
-                    <Link to='/register/operator' className='custom-button3' type="link">
-                      ลงทะเบียน
-                    </Link>
-                    <span>&nbsp;&nbsp;</span>
-                    <span className="text-wrapper-2">ด้วยอีเมล?</span>
-                  </Col>
-                </div>
+              <Form
+                name="basic"
+                layout="vertical"
+                onFinish={onFinish}
+                autoComplete="off"
+              >
+                <Card size="small" style={{ height: "220px" }}>
+                  <div style={{ marginBottom: "10px", marginTop: "20px", marginLeft: "30px", marginRight: "30px" }}>
+                    <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                      <Form.Item
+                        className="form-item-wrapper"
+                        label="อีเมล"
+                        name="operator_email"
+                        rules={[
+                          {
+                            type: "email",
+                            message: "รูปแบบอีเมลไม่ถูกต้อง !",
+                          },
+                          {
+                            required: true,
+                            message: "กรุณากรอก !",
+                          },
+                        ]}
+                      >
+                        <Input
+                        />
+                      </Form.Item>
+                    </Col>
+                    <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                      <Form.Item
+                        className="form-item-wrapper"
+                        label="รหัสผ่าน"
+                        name="operator_pass"
+                        rules={[
+                          {
+                            required: true,
+                            message: "กรุณากรอก !",
+                          },
+                        ]}
+                      >
+                        <Input.Password />
+                      </Form.Item>
+                    </Col>
+                    <Divider />
+                  </div>
+                </Card>
+                <Card style={{ height: "85px", marginTop: "-15px", }}>
+                  <div className="label" style={{ marginLeft: "18px", marginRight: "30px" }}>
+                    <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                      <Button htmlType="submit" className='custom-button2' type="primary" size={size}
+                        style={{ backgroundColor: '#3b50ce', color: 'white', borderColor: '#3b50ce' }}
+                      >
+                        เข้าสู่ระบบ
+                      </Button>
+                      <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                      <span className="text-wrapper-2">หรือ</span>
+                      <span>&nbsp;&nbsp;</span>
+                      <Link to='/register/operator' className='custom-button3' type="link">
+                        ลงทะเบียน
+                      </Link>
+                      <span>&nbsp;&nbsp;</span>
+                      <span className="text-wrapper-2">ด้วยอีเมล?</span>
+                    </Col>
+                  </div>
 
-              </Card>
-            </Form>
+                </Card>
+              </Form>
             </div>
-            
+
           </Space>
         </div>
       </Col>

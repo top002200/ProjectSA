@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import op from "../../../public/op.png";
 import {
   Col,
   Card,
@@ -28,6 +29,7 @@ import { OperatorsInterface } from "../../../interfaces/IOperator";
 import { GetOperators, UpdatePrivacyOperator, DeleteOperator } from "../../../services/https/operator";
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import { Header } from 'antd/es/layout/layout';
+import { Helmet } from 'react-helmet';
 
 function PrivacyOperator() {
   const [messageApi, contextHolder] = message.useMessage();
@@ -158,6 +160,9 @@ function PrivacyOperator() {
 
   return (
     <>
+      <Helmet>
+        <title>JOBJOB : Privacy</title>
+      </Helmet>
       <Drawer
         title="JOBJOB MENU"
         placement="right"
@@ -168,7 +173,7 @@ function PrivacyOperator() {
       >
 
         <Row style={{ marginTop: '10px', marginLeft: '20px' }}>
-          <Avatar src="https://xsgames.co/randomoperators/avatar.php?g=pixel" style={{ cursor: 'pointer', transform: 'scale(2)' }}>
+          <Avatar src={op} style={{ cursor: 'pointer', transform: 'scale(2)' }}>
 
           </Avatar>
           <Link to="/login/operator" style={{ textDecoration: "none" }}>
@@ -266,7 +271,7 @@ function PrivacyOperator() {
                   fontWeight: 'bolder', color: 'white', justifySelf: 'center',
                   height: '-25px'
                 }}>
-                  <span style={{ color: '#ff7518' }}>Privacy</span>
+                  <span style={{ color: '#ff7518' }}>Security</span>
                 </text>
               </div>
             </Card>

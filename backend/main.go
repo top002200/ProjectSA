@@ -48,6 +48,7 @@ func main() {
 	r.POST("/upload", controller.UploadHandler)
 	r.GET("/searchuser/:key", controller.SearchUser)
 	r.GET("/getuser", controller.GetUserAll)
+	r.GET("/mywork/:user_id", controller.GetMyWork)
 	// Run the server
 	r.GET("/resume/:filename", func(c *gin.Context) {
 		filename := c.Param("filename")

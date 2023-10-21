@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import person1 from "../../../public/person1.jpg";
 import {
   Col,
   Card,
@@ -28,6 +29,7 @@ import { GetUsers, UpdateSecurityUser, DeleteUser, GetUsersNoti } from "../../..
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import { Header } from 'antd/es/layout/layout';
 import Table, { ColumnsType } from 'antd/es/table';
+import { Helmet } from 'react-helmet';
 
 function PrivacyUserUI() {
   const [messageApi, contextHolder] = message.useMessage();
@@ -206,6 +208,9 @@ function PrivacyUserUI() {
 
   return (
     <>
+      <Helmet>
+        <title>JOBJOB : Privacy</title>
+      </Helmet>
       <Drawer
         title="JOBJOB MENU"
         placement="right"
@@ -216,7 +221,7 @@ function PrivacyUserUI() {
       >
 
         <Row style={{ marginTop: '10px', marginLeft: '20px' }}>
-          <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" style={{ cursor: 'pointer', transform: 'scale(2)' }}>
+          <Avatar src={person1} style={{ cursor: 'pointer', transform: 'scale(2)' }}>
 
           </Avatar>
           <a href="/login/user" style={{ textDecoration: "none" }}>

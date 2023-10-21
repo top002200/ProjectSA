@@ -1,13 +1,13 @@
 import sut from "../../public/sut.png";
 import logo from "../../public/jobjob.png";
-
+import op from "../../public/op.png";
 import person1 from "../../public/person1.jpg";
 import { GetPost, UploadImage, GetLatestWHU } from "../../services/https/feed.service";
 import { useEffect, useState, KeyboardEvent } from 'react';
 import { style } from "./opsearchcss"
 // import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import Swal from 'sweetalert2'
-import { Avatar, Button, Drawer, Row, message } from "antd";
+import { Button, Drawer, Row, message } from "antd";
 import { CreateRegWork } from "../../services/https/feed.service";
 import { Link, useNavigate } from "react-router-dom";
 import { SearchUser, GetUserHWU } from "../../services/https/opsearch.service"
@@ -22,6 +22,10 @@ import {
     IdcardOutlined,
     SafetyOutlined,
 } from "@ant-design/icons";
+import { OperatorsInterface } from "../../interfaces/IOperator";
+import { DataWHU } from "../../interfaces";
+import { GetOperators } from "../../services/https/operator";
+import Avatar from 'antd/es/avatar/avatar';
 
 function Opsearch() {
 
@@ -29,6 +33,17 @@ function Opsearch() {
     const [messageApi, contextHolder] = message.useMessage();
     const [openMenu, setMenuOpen] = useState(false);
     const [comname, setComname] = useState();
+    let [dataCS, setDataCS] = useState<DataWHU[]>([]);
+    const [operator, setOperators] = useState<OperatorsInterface>();
+    const operatorID = localStorage.getItem('id');
+
+    const getOperatorById = async () => {
+        let res = await GetOperators(Number(operatorID));
+        if (res) {
+            setOperators(res);
+            setComname(res.Com_name);
+        }
+    };
 
     const handleLogout = () => {
         localStorage.removeItem("accessToken");
@@ -81,6 +96,7 @@ function Opsearch() {
             }
         };
         fetchData();
+        getOperatorById();
     }, []);
 
 
@@ -125,7 +141,10 @@ function Opsearch() {
                         {/* Left */}
                         <div style={style.customWidth}>
                             <div className="col d-flex flex-column bd-highlight mb-3 align-items-center justify-content-center">
-                                <img src={sut} alt="" style={style.companylogo} />
+                                {/* <img src={sut} alt="" style={style.companylogo} /> */}
+                                <Avatar src={person1} alt="" style={style.companylogo}>
+
+                                </Avatar>
                                 <div>
                                     <div style={style.companyName}>
                                         {name}
@@ -172,10 +191,10 @@ function Opsearch() {
             >
 
                 <Row style={{ marginTop: '10px', marginLeft: '20px' }}>
-                    <Avatar src="https://xsgames.co/randomoperators/avatar.php?g=pixel" style={{ cursor: 'pointer', transform: 'scale(2)' }}>
+                    <Avatar src={op} style={{ cursor: 'pointer', transform: 'scale(2)' }}>
 
                     </Avatar>
-                    <Link to="/login/operator">
+                    <Link to="/login/operator" style={{ textDecoration: "none" }}>
                         <text style={{
                             fontSize: '20px', marginLeft: '25px',
                             fontWeight: 'bolder', color: 'white'
@@ -235,7 +254,7 @@ function Opsearch() {
                     justifyContent: 'space-between', // ชิดด้านขวา
                     maxWidth: '99%'
                 }}>
-                    <Link to={'/candidatehome/home'}>
+                    <a href="/" style={{ textDecoration: "none" }}>
                         <text style={{
                             fontSize: '50px', marginLeft: '30px',
                             fontWeight: 'bolder', color: 'white'
@@ -245,7 +264,7 @@ function Opsearch() {
                             <span style={{ color: '#ff7518' }}>JO</span>
                             <span>B</span>
                         </text>
-                    </Link>
+                    </a>
                     <div>
                         <input
                             type="text"

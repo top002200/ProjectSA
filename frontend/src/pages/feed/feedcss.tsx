@@ -103,6 +103,13 @@ const style = {
         marginLeft: 10,
         marginRight: 15
     },
+    Topic: {
+        color: "#000",
+        fontSize: 18,
+        fontWeight: 500,
+        marginBottom: 10,
+        marginTop: 10
+    },
     timeStamp: {
         color: "#000",
         fontSize: 12,
@@ -129,6 +136,22 @@ const style = {
         padding: 5,
         borderRadius: 50,
         border: 'none'
+    },
+    Reged: {
+        backgroundColor: "#6D2444",
+        marginLeft: 5,
+        padding: 5,
+        borderRadius: 50,
+        border: 'none'
+    },
+    salary: {
+        backgroundColor: "#ddd",
+        marginLeft: 5,
+        paddingLeft: 10,
+        paddingRight: 10,
+        borderRadius: 50,
+        border: 'none',
+        fontSize: 18
     },
     regText: {
         color: "#FFF",

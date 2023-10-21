@@ -2,7 +2,8 @@ import sut from "../../public/sut.png";
 import logo from "../../public/jobjob.png";
 
 import person1 from "../../public/person1.jpg";
-import { GetPost, UploadImage, GetLatestWHU } from "../../services/https/feed.service";
+
+import { GetPost, UploadImage, GetLatestWHU, GetMyWork } from "../../services/https/feed.service";
 import { useEffect, useState, KeyboardEvent } from 'react';
 import { style } from "./feedcss"
 // import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
@@ -26,6 +27,7 @@ import {
 import { ColumnsType } from "antd/es/table";
 import { NotiInterface, UsersInterface } from "../../interfaces/IUser";
 import { GetUsers, GetUsersNoti } from "../../services/https/user";
+import { stat } from "fs";
 
 function Feed() {
 
@@ -137,7 +139,9 @@ function Feed() {
         "CreatedAt": "",
         "Operator": {
             "Com_name": ""
-        }
+        },
+        "Topic": "",
+        "Salary": ""
     }]);
 
     // Post
@@ -148,12 +152,20 @@ function Feed() {
         "CreatedAt": "",
         "Operator": {
             "Com_name": ""
-        }
+        },
+        "Topic": "",
+        "Salary": ""
+    }]);
+
+    // My Work
+    const [myWork, setMyWork] = useState([{
+        "CandidatepostID": 0
     }]);
 
     useEffect(() => {
         getPost();
         updateLastpostID();
+        myworkUpdate()
     }, []);
 
     const handleReload = () => {
@@ -188,19 +200,45 @@ function Feed() {
         }
     };
 
-    const [key, setKey] = useState(''); // State to store the input value
-    const [response, setResponse] = useState(data); // State to store the response
+    const myworkUpdate = async () => {
+
+        try {
+            const response = GetMyWork(userID);
+            if (!response) {
+                throw new Error('ไม่สามารถดึงข้อมูล API ได้');
+            }
+            const myWork = await response;
+            setMyWork(myWork);
+        } catch (error) {
+            console.error('เกิดข้อผิดพลาดในการดึง API:', error);
+        }
+    };
+
+    const [response, setResponse] = useState([{
+        "ID": 0,
+        "Position": "",
+        "Dsecrition": "",
+        "CreatedAt": "",
+        "Operator": {
+            "Com_name": ""
+        },
+        "Topic": "",
+        "Salary": ""
+    }]); // State to store the response
 
     // Search
     const handleEnterKeyPress = async (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
             let inputValue = event.currentTarget.value;
             console.log("input = \"" + inputValue + "\"")
-            setKey(inputValue); // Update the "key" state with the input value
 
             try {
                 const response = await SearchWork(inputValue);
                 setResponse(response);
+                for (let i = 1; i <= response.length; i++) {
+                    let newpost = response[i - 1]
+                    console.log(newpost);
+                }
                 console.log(response);
             } catch (error) {
                 console.error(error);
@@ -278,6 +316,7 @@ function Feed() {
 
     /// Post Gen
     const post = [];
+
     for (let i = 1; i <= response.length; i++) {
 
         let newpost = response[i - 1]
@@ -286,6 +325,21 @@ function Feed() {
         let company = newpost.Operator.Com_name
         let description = newpost.Dsecrition
         let timeStamp = newpost.CreatedAt
+        let topic = newpost.Topic
+        let salary = newpost.Salary
+
+
+
+        let status = 1
+        for (let j = 0; j < myWork.length; j++) {
+            console.log(myWork[j].CandidatepostID + " : " + post_id)
+            if (myWork[j].CandidatepostID === post_id) {
+                status = 0
+                break;
+            } else {
+                status = 1
+            }
+        }
         post.push(
             <div>
                 <div id={post_id.toString()} style={style.post}>
@@ -309,17 +363,34 @@ function Feed() {
                                 <div style={style.positiontext}>
                                     {position}
                                 </div>
-                                <button style={style.btnReg} onClick={() => uploadResume(position, company, post_id)}>
-                                    <div style={style.regText}>สมัครงาน</div>
-                                </button>
+                                {status === 1 ? (
+                                    <button style={style.btnReg} onClick={() => uploadResume(position, company, post_id)}>
+                                        <div style={style.regText}>สมัครงาน</div>
+                                    </button>
+                                ) : (
+                                    <div style={style.Reged}>
+                                        <div style={style.regText}>คุณสมัครงานนี้แล้ว</div>
+                                    </div>
+
+                                )}
+
                             </div>
                         </div>
                     </div>
 
                     {/* POST Description */}
                     <div style={style.postBody}>
-                        {description}
-
+                        <div className="d-flex justify-content-between align-items-center">
+                            <div style={style.Topic}>
+                                - {topic}
+                            </div>
+                            <div style={style.salary}>
+                                {salary}
+                            </div>
+                        </div>
+                        <pre>
+                            {description}
+                        </pre>
                     </div>
                 </div>
             </div>
@@ -327,11 +398,12 @@ function Feed() {
     }
 
 
+
+
     return (
         <div>
             <Helmet>
                 <title>JOBJOB</title>
-                <link rel="icon" href="./logoFeed.ico" />
             </Helmet>
             <Drawer
                 title="JOBJOB MENU"
@@ -342,8 +414,9 @@ function Feed() {
                 key="right"
             >
 
+
                 <Row style={{ marginTop: '10px', marginLeft: '20px' }}>
-                    <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" style={{ cursor: 'pointer', transform: 'scale(2)' }}>
+                    <Avatar src={person1} style={{ cursor: 'pointer', transform: 'scale(2)' }}>
 
                     </Avatar>
                     <a href="/login/user" style={{ textDecoration: "none" }}>

@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import { UsersInterface } from "../../../interfaces/IUser";
 import { UserLogin } from "../../../services/https/user";
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
+import { Helmet } from 'react-helmet';
 const { TextArea } = Input;
 
 
@@ -32,7 +33,7 @@ function LoginUserUI() {
         console.log(localStorage.getItem('id'));
         messageApi.success("เข้าสู่ระบบสำเร็จ");
         setTimeout(() => {
-          window.location.href = "/profile/user";
+          window.location.href = "/";
         }, 1500);
       }
     } catch (error) {
@@ -51,6 +52,9 @@ function LoginUserUI() {
 
   return (
     <>
+      <Helmet>
+        <title>JOBJOB : Login</title>
+      </Helmet>
       {contextHolder}
       <Col xs={24} sm={24} md={24} lg={24} xl={24}>
         <div className='img-back' style={{ display: "grid", placeItems: "center", height: "100vh" }}>
@@ -102,7 +106,7 @@ function LoginUserUI() {
                           },
                         ]}
                       >
-                        <Input/>
+                        <Input />
                       </Form.Item>
                     </Col>
                     <Col xs={24} sm={24} md={24} lg={24} xl={24}>

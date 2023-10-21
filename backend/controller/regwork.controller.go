@@ -133,12 +133,23 @@ func SearchWork(c *gin.Context) {
 	key := c.Param("key")
 
 	// Corrected SQL query with placeholders
-	query := "SELECT * FROM candidateposts INNER JOIN operator_accounts ON candidateposts.operator_id = operator_accounts.id WHERE dsecrition LIKE ? OR position LIKE ? OR operator_accounts.com_name LIKE ?"
+	query := "SELECT candidateposts.*, operator_accounts.id AS id_op FROM candidateposts INNER JOIN operator_accounts ON candidateposts.operator_id = operator_accounts.id WHERE candidateposts.dsecrition LIKE ? OR candidateposts.position LIKE ? OR operator_accounts.com_name LIKE ? OR candidateposts.topic LIKE ?"
 	keyWithWildcards := "%" + key + "%"
 
-	if err := entity.DB().Preload("Operator").Raw(query, keyWithWildcards, keyWithWildcards, keyWithWildcards).Find(&search_w).Error; err != nil {
+	if err := entity.DB().Preload("Operator").Raw(query, keyWithWildcards, keyWithWildcards, keyWithWildcards, keyWithWildcards).Find(&search_w).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"search_w": search_w})
+}
+
+func GetMyWork(c *gin.Context) {
+	var myWork []entity.WorkHasUser
+	user_id := c.Param("user_id")
+
+	if err := entity.DB().Raw("SELECT * FROM work_has_users WHERE user_id = ?", user_id).Find(&myWork).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"myWork": myWork})
 }

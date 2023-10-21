@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import op from "../../../public/op.png";
 import {
   Col,
   Card,
@@ -36,6 +37,9 @@ import { CandidateInterface } from "../../../interfaces/ICandidate";
 import { CreateCandidatepost } from "../../../services/https/candidate";
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import { Header } from 'antd/es/layout/layout';
+import { GetOperators } from '../../../services/https/operator';
+import { OperatorsInterface } from '../../../interfaces/IOperator';
+import { Helmet } from 'react-helmet';
 const { TextArea } = Input;
 
 function Candidatepost() {
@@ -45,7 +49,8 @@ function Candidatepost() {
   const [passwordError, setPasswordError] = useState('');
   const [openMenu, setMenuOpen] = useState(false);
   const [comname, setComname] = useState();
-  
+  const [operator, setOperators] = useState<OperatorsInterface>();
+
 
 
 
@@ -108,10 +113,21 @@ function Candidatepost() {
     window.location.href = "/";
   }
 
+  const getOperatorById = async () => {
+    let res = await GetOperators(Number(operatorID));
+    if (res) {
+      setOperators(res);
+      setComname(res.Com_name);
+    }
+  };
+
 
   return (
     <>
-       <Drawer
+      <Helmet>
+        <title>JOBJOB : Post</title>
+      </Helmet>
+      <Drawer
         title="JOBJOB MENU"
         placement="right"
         closable={false}
@@ -120,8 +136,8 @@ function Candidatepost() {
         key="right"
       >
 
-        <Row style={{ marginTop: '10px', marginLeft: '20px'}}>
-          <Avatar src="https://xsgames.co/randomoperators/avatar.php?g=pixel" style={{ cursor: 'pointer', transform: 'scale(2)' }}>
+        <Row style={{ marginTop: '10px', marginLeft: '20px' }}>
+          <Avatar src={op} style={{ cursor: 'pointer', transform: 'scale(2)' }}>
 
           </Avatar>
           <Link to="/login/operator" style={{ textDecoration: "none" }}>
@@ -144,20 +160,20 @@ function Candidatepost() {
           Profile
         </Button>
         <Link to="/candidatehome/home">
-        <Button icon={<NotificationOutlined />} style={{
-              fontSize: '18px', fontWeight: 'bold', height: '45px',
-              marginTop: '5px', width: '100%',textAlign: 'center'
-            }}> 
-              Job Post
-        </Button>
+          <Button icon={<NotificationOutlined />} style={{
+            fontSize: '18px', fontWeight: 'bold', height: '45px',
+            marginTop: '5px', width: '100%', textAlign: 'center'
+          }}>
+            Job Post
+          </Button>
         </Link>
         <Link to="/operator/CandidateSelection">
-        <Button icon={<SolutionOutlined />} style={{
-              fontSize: '18px', fontWeight: 'bold', height: '45px',
-              marginTop: '5px', width: '100%',textAlign: 'center'
-            }}>
-              Candidate
-        </Button>
+          <Button icon={<SolutionOutlined />} style={{
+            fontSize: '18px', fontWeight: 'bold', height: '45px',
+            marginTop: '5px', width: '100%', textAlign: 'center'
+          }}>
+            Candidate
+          </Button>
         </Link>
         <Button onClick={handleSecurity} icon={<SafetyOutlined />} style={{
           fontSize: '18px', fontWeight: 'bold', height: '45px',
@@ -193,16 +209,16 @@ function Candidatepost() {
             <span>B</span>
           </text>
           <div style={{ flex: 1 }}></div>
-          
+
           <Button onClick={showDrawer} icon={<MenuOutlined />} style={{
             fontSize: '18px', fontWeight: 'bold',
             marginTop: '0px', marginLeft: '5px',
             height: '45px',
-            width: '110px', 
+            width: '110px',
           }}>
             MENU
           </Button>
-          
+
 
         </div>
       </Header >
@@ -388,33 +404,7 @@ function Candidatepost() {
                           message: 'กรุณาตำแหน่งงาน!'
 
                         }]}>
-                        <Select placeholder="เลือกตำแหน่งงาน"
-                          // defaultValue="--เลือกตำแหน่งงาน--"
-
-                          optionLabelProp="label"
-                          // onChange={handleChange}
-                          options={[
-                            { value: 'ผู้จัดการทั่วไป', label: 'ผู้จัดการทั่วไป' },
-                            { value: 'ผู้จัดการ', label: 'ผู้จัดการ' },
-                            { value: 'ผู้จัดการสาขา', label: 'ผู้จัดการสาขา' },
-                            { value: 'หัวหน้าแผนก', label: 'หัวหน้าแผนก' },
-                            { value: 'ผู้จัดการฝ่ายบุคคล', label: 'ผู้จัดการฝ่ายบุคคล' },
-                            { value: 'ผู้จัดการฝ่ายการเงิน', label: 'ผู้จัดการฝ่ายการเงิน' },
-                            { value: 'ผู้จัดการฝ่ายขาย', label: 'ผู้จัดการฝ่ายขาย' },
-                            { value: 'ผู้จัดการฝ่ายโรงงาน', label: 'ผู้จัดการฝ่ายโรงงาน' },
-                            { value: 'ผู้จัดการฝ่ายบัญชี', label: 'ผู้จัดการฝ่ายบัญชี' },
-                            { value: 'ผู้จัดการฝ่ายจัดซื้อ', label: 'ผู้จัดการฝ่ายจัดซื้อ' },
-                            { value: 'ผู้จัดการฝ่ายผลิต', label: 'ผู้จัดการฝ่ายผลิต' },
-                            { value: 'ผู้จัดการฝ่ายส่งออก', label: 'ผู้จัดการฝ่ายส่งออก' },
-                            { value: 'เลขาผู้บริหาร', label: 'เลขาผู้บริหาร' },
-                            { value: 'เลขานุการ', label: 'เลขานุการ' },
-                            { value: 'พนังงาน', label: 'พนังงาน' },
-                            { value: 'ลูกจ้าง', label: 'ลูกจ้าง' },
-                            { value: 'อื่นๆ', label: 'อื่นๆ' },
-
-                          ]}
-
-                        />
+                        <Input placeholder="เช่น ผู้จัดการ" />
 
                       </Form.Item>
                     </Col>

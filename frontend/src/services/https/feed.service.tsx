@@ -37,6 +37,7 @@ async function GetPost() {
   let res = await fetch(`${apiUrl}/post`, requestOptions)
     .then((response) => response.json())
     .then((res) => {
+      console.log(res.data)
       if (res.data) {
         return res.data;
       } else {
@@ -47,22 +48,6 @@ async function GetPost() {
   return res;
 }
 
-// if (res.whul.length == 0) {
-//   const start = {
-//     "ID": 0,
-//     "Position": "",
-//     "CompanyName": "",
-//     "Description": "",
-//     "PostTimestamp": "",
-//     "Matched": true
-//   }
-//   res.whul.push(start);
-// }
-
-
-// async function delayedAction() {
-//   await new Promise(resolve => setTimeout(resolve, 2000));
-// }
 
 // Get Last WHU id
 async function GetLatestWHU() {
@@ -74,7 +59,7 @@ async function GetLatestWHU() {
     },
   };
   let res = await fetch(`${apiUrl}/whul`, requestOptions)
-    
+
     .then((response) => response.json())
     .then((res) => {
       if (res.whul) {
@@ -89,7 +74,6 @@ async function GetLatestWHU() {
           }
           res.whul.push(start);
         }
-        console.log("Service Get : "+res.whul[0].ID)
         return res.whul;
       } else {
         return false;
@@ -120,7 +104,7 @@ const UploadImage = (file: File, whu_id: number) => {
       return response.json();
     })
     .then((data) => data)
-    
+
 };
 
 
@@ -139,7 +123,7 @@ async function SearchWork(key: String) {
     .then((response) => response.json())
     .then((res) => {
       if (res.search_w) {
-
+        console.log(res.search_w)
         return res.search_w;
       } else {
         return false;
@@ -149,11 +133,33 @@ async function SearchWork(key: String) {
   return res;
 }
 
+// GET WORK
+async function GetMyWork(user_id: number) {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  let res = await fetch(`${apiUrl}/mywork/${user_id}`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res) {
+        return res.myWork;
+      } else {
+        return false;
+      }
+    });
+  return res;
+}
+
 export {
   CreateRegWork,
   GetPost,
   // GetUserById,
   UploadImage,
   GetLatestWHU,
-  SearchWork
+  SearchWork,
+  GetMyWork
 };

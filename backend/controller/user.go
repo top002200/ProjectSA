@@ -103,7 +103,7 @@ func UpdateUser(c *gin.Context) {
 	}
 
 	if err := entity.DB().Model(&result).Select("skill", "experience", "title_name",
-		"first_name", "last_name", "address").Updates(&user).Error; err != nil {
+		"first_name", "last_name", "address", "avatar").Updates(&user).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}

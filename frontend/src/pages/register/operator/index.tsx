@@ -25,6 +25,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { OperatorsInterface } from "../../../interfaces/IOperator";
 import { CreateOperator } from "../../../services/https/operator";
 import type { SizeType } from "antd/es/config-provider/SizeContext";
+import { Helmet } from "react-helmet";
 const { TextArea } = Input;
 
 function RegisterOperator() {
@@ -71,9 +72,9 @@ function RegisterOperator() {
 
   return (
     <>
-      {/* <Header style={{ display: 'flex', alignItems: 'center' }}>
-      <div className="demo-logo" />
-    </Header> */}
+      <Helmet>
+        <title>JOBJOB : Register</title>
+      </Helmet>
       {contextHolder}
       <Col xs={24} sm={24} md={24} lg={24} xl={24}>
         <div

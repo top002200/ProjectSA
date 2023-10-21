@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import op from "../../../public/op.png";
 import {
   LoginOutlined,
   UserOutlined,
@@ -27,6 +27,7 @@ import { Link } from 'react-router-dom';
 import { CreateCandidate, GetCandidate } from '../../../services/https/cs';
 import { GetOperators } from '../../../services/https/operator';
 import { OperatorsInterface } from '../../../interfaces/IOperator';
+import { Helmet } from 'react-helmet';
 
 
 
@@ -366,7 +367,9 @@ const CandidateSelection: React.FC = () => {
 
 
     <Layout>
-
+      <Helmet>
+        <title>JOBJOB : Selection</title>
+      </Helmet>
       <Drawer
         title="JOBJOB MENU"
         placement="right"
@@ -377,7 +380,7 @@ const CandidateSelection: React.FC = () => {
       >
 
         <Row style={{ marginTop: '10px', marginLeft: '20px' }}>
-          <Avatar src="https://xsgames.co/randomoperators/avatar.php?g=pixel" style={{ cursor: 'pointer', transform: 'scale(2)' }}>
+          <Avatar src={op} style={{ cursor: 'pointer', transform: 'scale(2)' }}>
 
           </Avatar>
           <Link to="/login/operator" style={{ textDecoration: "none" }}>
